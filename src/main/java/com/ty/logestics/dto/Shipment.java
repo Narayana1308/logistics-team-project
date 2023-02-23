@@ -22,4 +22,55 @@ public class Shipment {
 	@ManyToOne
 	private Goods goods;
 
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getManager_name() {
+		return manager_name;
+	}
+
+
+	public void setManager_name(String manager_name) {
+		this.manager_name = manager_name;
+	}
+
+
+	public long getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(long phone) {
+		this.phone = phone;
+	}
+
+
+	public Goods getGoods() {
+		return goods;
+	}
+
+
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
+	
+
 }
