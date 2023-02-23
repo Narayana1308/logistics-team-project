@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import lombok.Data;
 
 @Entity
-@Data
+//@Data
 public class Company {
  
 	@Id
@@ -19,5 +19,42 @@ public class Company {
 	private String email;
 	private long phone;
 	private String ceo;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getGst() {
+		return gst;
+	}
+	public void setGst(String gst) {
+		this.gst = gst;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public long getPhone() {
+		return phone;
+	}
+	public void setPhone(long phone) {
+		this.phone = phone;
+	}
+	public String getCeo() {
+		return ceo;
+	}
+	public void setCeo(String ceo) {
+		this.ceo = ceo;
+	}
+	
 	
 }
