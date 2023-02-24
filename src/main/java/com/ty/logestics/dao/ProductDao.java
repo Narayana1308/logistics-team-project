@@ -41,7 +41,7 @@ public class ProductDao {
 			return null;
 	}
 
-	public Product findById(int id) {
+	public Product getProductById(int id) {
 		if (repo.findById(id).isPresent()) {
 			Product product = repo.findById(id).get();
 			return product;
@@ -50,7 +50,7 @@ public class ProductDao {
 			return null;
 	}
 
-	public List<Product> findAll() {
+	public List<Product> getAll() {
 		return repo.findAll();
 
 	}
