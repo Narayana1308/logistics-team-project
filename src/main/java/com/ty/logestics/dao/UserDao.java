@@ -15,4 +15,36 @@ public class UserDao {
 		return repo.save(user);
 	}
 
+	public User updateUser(int id, User user) {
+		if (repo.findById(id).isPresent()) {
+			user.setId(id);
+			return repo.save(user);
+		} else {
+           return null;
+		}
+	}
+	public User deleteUser(int id) {
+		User user=repo.findById(id).get();
+		if(user!=null) {
+			repo.deleteById(id);
+			return user;
+		}else {
+			return null;
+		}
+	}
+	public User getUserById(int id) {
+			return repo.findById(id).get();
+	}
+	public User loginUser(String email) {
+		User user=repo.findByEmail(email);
+		if(user!=null) {
+			return user;
+		}else {
+			return null;
+		}
+	}
+	public User getUserByEmail(String email) {
+		return repo.findByEmail(email);
+	}
+
 }
