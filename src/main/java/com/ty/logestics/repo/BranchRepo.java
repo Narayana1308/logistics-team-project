@@ -5,9 +5,13 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.ty.logestics.dto.Branch;
 
+<<<<<<< HEAD
 public interface BranchRepo extends JpaRepository<Branch, Integer> {
 
 	@Query("select b from Branch b where b.branch_Manager=?1")
 	public Branch findByBranchManager(String managerName);
+=======
+
+>>>>>>> 87547bfebf6323feb340181fbfc502e9dd6b2bc1
 
 }
