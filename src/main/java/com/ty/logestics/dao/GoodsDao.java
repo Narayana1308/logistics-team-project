@@ -16,7 +16,27 @@ public class GoodsDao {
 	public Goods saveUser(Goods goods) {
 		return repo.save(goods);
 	}
-	
-	
+
+	public Goods updateGoods(int id, Goods goods) {
+		if (repo.findById(id).isPresent()) {
+			goods.setId(id);
+			return repo.save(goods);
+		} else {
+			return null;
+		}
+	}
+
+	public Goods deleteById(int id) {
+		Goods goods = repo.findById(id).get();
+		if (goods != null) {
+			repo.deleteById(id);
+			return goods;
+		}else {
+			return null;
+		}
+	}
+	public Goods getById(int id) {
+		return repo.findById(id).get();
+	}
 
 }
