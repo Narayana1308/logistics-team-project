@@ -19,8 +19,11 @@ public class ShipmentDao {
 	public Shipment saveShipment(int gid, Shipment shipment) {
 
 		Goods goods = dao.getById(gid);
+		if (goods != null) {
 
-		shipment.setGoods(goods);
+			shipment.setGoods(goods);
+		}
+
 		return repo.save(shipment);
 
 	}
