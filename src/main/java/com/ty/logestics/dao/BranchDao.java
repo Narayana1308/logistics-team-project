@@ -50,11 +50,11 @@ public class BranchDao {
 			return null;
 	}
 
-//	public Branch getByManagerName(String managerName) {
-//
-//		return branchRepo.findByBranchManager(managerName);
-//
-//	}
+	public Branch getByManagerName(String managerName) {
+
+		return branchRepo.findByBranchManager(managerName);
+
+	}
 
 	public List<Branch> getAllBranches() {
 		return branchRepo.findAll();
