@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.ty.logestics.dto.Branch;
 
-public interface BranchRepo extends JpaRepository<Branch, Integer> {
 
 
 }
