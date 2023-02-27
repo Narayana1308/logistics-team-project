@@ -63,4 +63,6 @@ public class Branch {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-}
+	
+	
+	}

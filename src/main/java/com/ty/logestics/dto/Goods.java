@@ -80,7 +80,6 @@ public class Goods {
 	}
 	public void setOrder(Order order) {
 		this.order = order;
-	}	
+	}
 	
-
-}
+	}

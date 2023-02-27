@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import lombok.Data;
 
 @Entity
-//@Data
+@Data
 public class Company {
  
 	@Id
@@ -56,5 +56,5 @@ public class Company {
 		this.ceo = ceo;
 	}
 	
-	
+		
 }
