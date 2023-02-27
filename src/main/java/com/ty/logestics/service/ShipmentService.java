@@ -21,20 +21,22 @@ public class ShipmentService {
 	@Autowired
 	private ShipmentDao sdao;
 
-	public ResponseEntity<ResponseStructure<Shipment>> saveShipment(int id, Shipment shipment) {
+	public ResponseEntity<ResponseStructure<Shipment>> saveShipment(int gid, Shipment shipment) {
 
-		Goods goods = dao.getById(id);
+		Goods goods = dao.getById(gid);
 		if (goods != null) {
 			shipment.setGoods(goods);
-		}
+		
 		ResponseStructure<Shipment> structure = new ResponseStructure<Shipment>();
 
 		structure.setMessage("successfully saved");
 		structure.setStatus(HttpStatus.CREATED.value());
-		structure.setData(sdao.saveShipment(id, shipment));
+		structure.setData(sdao.saveShipment(gid, shipment));
 
 		return new ResponseEntity<ResponseStructure<Shipment>>(structure, HttpStatus.CREATED);
-
+		}
+		else
+			throw new IdNotFoundException("Id not Found");
 	}
 
 	public ResponseEntity<ResponseStructure<Shipment>> updateShipment(int id, Shipment shipment) {
