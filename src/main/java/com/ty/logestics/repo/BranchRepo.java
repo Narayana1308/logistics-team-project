@@ -9,7 +9,7 @@ import com.ty.logestics.dto.Branch;
 
 public interface BranchRepo extends JpaRepository<Branch, Integer> {
 
-	@Query("select b from Branch b where b.branch_Manager=?1")
+	@Query("select c from Branch c where c.branch_Manager=?1")
 	public Branch findByBranchManager(String name);
 
 }
