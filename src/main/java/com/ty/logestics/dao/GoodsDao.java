@@ -31,10 +31,11 @@ public class GoodsDao {
 		if (goods != null) {
 			repo.deleteById(id);
 			return goods;
-		}else {
+		} else {
 			return null;
 		}
 	}
+
 	public Goods getById(int id) {
 		return repo.findById(id).get();
 	}
