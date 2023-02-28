@@ -49,11 +49,12 @@ public class OrderService {
 	
 		Order daoOrder=orderDao.getOrderById(oid);
 		if(daoOrder!=null) {
-			order.setId(daoOrder.getId());
+		//	order.setId(daoOrder.getId());
+			order.setProducts(daoOrder.getProducts());
 			ResponseStructure<Order> structure=new ResponseStructure<>();
 			structure.setMessage("successfully updated Order");
 			structure.setStatus(HttpStatus.OK.value());
-			structure.setData(orderDao.updateOrder(oid, daoOrder));
+			structure.setData(orderDao.updateOrder(oid, order));
 			
 			return new ResponseEntity<ResponseStructure<Order>> (structure,HttpStatus.OK);
 			
