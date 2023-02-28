@@ -13,7 +13,7 @@ public class GoodsDao {
 	@Autowired
 	private GoodsRepo repo;
 
-	public Goods saveUser(Goods goods) {
+	public Goods saveGoods(Goods goods) {
 		return repo.save(goods);
 	}
 

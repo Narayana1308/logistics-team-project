@@ -15,13 +15,13 @@ public class UserDao {
 		return repo.save(user);
 	}
 
-	public User updateUser(int id, User user) {
-		if (repo.findById(id).isPresent()) {
+	public User updateUser(String id, User user) {
+		//if (repo.findById(id).isPresent()) {
 			user.setId(id);
 			return repo.save(user);
-		} else {
-           return null;
-		}
+//		} else {
+//           return null;
+//		}
 	}
 	public User deleteUser(int id) {
 		User user=repo.findById(id).get();

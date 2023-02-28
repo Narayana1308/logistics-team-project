@@ -3,7 +3,7 @@ package com.ty.logestics.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ty.logestics.dto.Order;
+import com.ty.logestics.dto.Orders;
 import com.ty.logestics.repo.OrderRepo;
 
 @Repository
@@ -12,23 +12,22 @@ public class OrderDao {
 	@Autowired
 	private OrderRepo orderRepo;
 	
-	public Order saveOrder(Order order) {
+	public Orders saveOrder(Orders order) {
 		return orderRepo.save(order);
 	}
 	
-	public Order updateOrder(int id,Order order) {
+	public Orders updateOrder(int id,Orders order) {
 		if(orderRepo.findById(id).isPresent()) {
 			order.setId(id);
-			
 			return orderRepo.save(order);
 		} else {
 			return null;
 		}
 	}
 	
-	public Order deleteOrder(int id) {
+	public Orders deleteOrder(int id) {
 		if(orderRepo.findById(id).isPresent()) {
-			Order order=orderRepo.findById(id).get();
+			Orders order=orderRepo.findById(id).get();
 			orderRepo.delete(order);
 			return order;
 		}else {
@@ -36,7 +35,7 @@ public class OrderDao {
 		}
 	}
 	
-	public Order getOrderById(int id) {
+	public Orders getOrderById(int id) {
 		
 		return orderRepo.findById(id).get();
 		
