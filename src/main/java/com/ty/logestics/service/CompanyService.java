@@ -26,7 +26,7 @@ public class CompanyService {
 		return new ResponseEntity<ResponseStructure<Company>> (structure,HttpStatus.CREATED);
 	}
 	
-	public ResponseEntity<ResponseStructure<Company>> updateCompany(int id,Company company){
+	public ResponseEntity<ResponseStructure<Company>> updateCompany(String id,Company company){
 		Company daoCompany=companyDao.updateCompany(id, company);
 		if(daoCompany!=null) {
 			ResponseStructure<Company> structure=new ResponseStructure<>();
