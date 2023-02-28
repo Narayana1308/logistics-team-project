@@ -18,8 +18,11 @@ public class GoodsDao {
 	}
 
 	public Goods updateGoods(int id, Goods goods) {
-		if (repo.findById(id).isPresent()) {
+		Goods goods2=repo.findById(id).get();
+		if (goods2!=null) {
 			goods.setId(id);
+			goods.setBranch(goods2.getBranch());
+			goods.setOrder(goods2.getOrder());
 			return repo.save(goods);
 		} else {
 			return null;
