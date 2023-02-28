@@ -26,7 +26,7 @@ public class CompanyController {
 	}
 	
 	@PutMapping("/company")
-	public ResponseEntity<ResponseStructure<Company>> updateCompany( @RequestParam int id ,@RequestBody Company company){
+	public ResponseEntity<ResponseStructure<Company>> updateCompany( @RequestParam String id ,@RequestBody Company company){
 		return service.updateCompany(id, company);
 	}
 	
