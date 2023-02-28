@@ -28,7 +28,7 @@ public class GoodsService {
 	
 	public ResponseEntity<ResponseStructure<Goods>> saveGoods(int oid,int uid,int bid,Goods goods){
 		Orders order=orderDao.getOrderById(oid);
-		Branch branch=branchDao.getById(bid);
+		Branch branch=branchDao.getBranchById(bid);
 		User user=userDao.getUserById(uid);
 		ResponseStructure<Goods> structure=new ResponseStructure<>();
 		if(order!=null && branch !=null && user!=null) {
