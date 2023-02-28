@@ -35,6 +35,7 @@ public class ShipmentService {
 
 		return new ResponseEntity<ResponseStructure<Shipment>>(structure, HttpStatus.CREATED);
 		}
+		
 		else
 			throw new IdNotFoundException("Id not Found");
 	}
