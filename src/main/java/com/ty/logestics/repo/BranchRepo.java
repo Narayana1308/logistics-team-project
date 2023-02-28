@@ -11,5 +11,4 @@ public interface BranchRepo extends JpaRepository<Branch, Integer> {
 	@Query("select b from Branch b where b.branch_Manager=?1")
 	public Branch findByBranchManager(String managerName);
 
-
 }

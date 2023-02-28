@@ -26,7 +26,7 @@ public class Goods {
 	@ManyToOne
 	private Branch branch;
 	@OneToOne
-	private Order order;
+	private Orders order;
 	public int getId() {
 		return id;
 	}
@@ -75,10 +75,10 @@ public class Goods {
 	public void setBranch(Branch branch) {
 		this.branch = branch;
 	}
-	public Order getOrder() {
+	public Orders getOrder() {
 		return order;
 	}
-	public void setOrder(Order order) {
+	public void setOrder(Orders order) {
 		this.order = order;
 	}
 	

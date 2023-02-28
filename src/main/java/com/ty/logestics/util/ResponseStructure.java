@@ -1,8 +1,9 @@
 package com.ty.logestics.util;
 
-import lombok.Data;
+
 
 public class ResponseStructure<T> {
+	
 	private String message;
 	private int status;
 	private T data;

@@ -13,7 +13,7 @@ public class GoodsDao {
 	@Autowired
 	private GoodsRepo repo;
 
-	public Goods saveUser(Goods goods) {
+	public Goods saveGoods(Goods goods) {
 		return repo.save(goods);
 	}
 
@@ -31,10 +31,11 @@ public class GoodsDao {
 		if (goods != null) {
 			repo.deleteById(id);
 			return goods;
-		}else {
+		} else {
 			return null;
 		}
 	}
+
 	public Goods getById(int id) {
 		return repo.findById(id).get();
 	}

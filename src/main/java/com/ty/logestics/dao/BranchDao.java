@@ -43,14 +43,14 @@ public class BranchDao {
 			return null;
 	}
 
-	public Branch getById(int bid) {
+	public Branch getBranchById(int bid) {
 		if (branchRepo.findById(bid).isPresent()) {
 			return branchRepo.findById(bid).get();
 		} else
 			return null;
 	}
 
-	public Branch getByManagerName(String managerName) {
+	public Branch getBranchByManagerName(String managerName) {
 
 		return branchRepo.findByBranchManager(managerName);
 

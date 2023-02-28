@@ -1,6 +1,6 @@
 package com.ty.logestics.dao;
 
-import javax.swing.table.TableStringConverter;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,8 +18,9 @@ public class CompanyDao {
 		return companyRepo.save(company);
 	}
 
-	public Company updateCompany(int id, Company company) {
-		if (companyRepo.findById(id).isPresent()) {
+	public Company updateCompany(String id, Company company) {
+		Company company2=companyRepo.findByCompanyId(id);
+		if (company2!=null) {
 			company.setId(id);
 			return companyRepo.save(company);
 		} else {
