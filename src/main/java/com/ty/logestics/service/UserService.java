@@ -9,7 +9,7 @@ import com.ty.logestics.dao.UserDao;
 import com.ty.logestics.dto.User;
 import com.ty.logestics.exception.IdNotFoundException;
 import com.ty.logestics.exception.UserEmailNotFoundException;
-import com.ty.logestics.service.exception.UserIdNotFoundException;
+import com.ty.logestics.exception.UserIdNotFoundException;
 import com.ty.logestics.util.ResponseStructure;
 
 @Service

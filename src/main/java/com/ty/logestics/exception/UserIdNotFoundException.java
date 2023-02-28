@@ -1,4 +1,4 @@
-package com.ty.logestics.service.exception;
+package com.ty.logestics.exception;
 
 public class UserIdNotFoundException extends RuntimeException {
 	private String message="User id not found";
