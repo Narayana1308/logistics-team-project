@@ -18,8 +18,12 @@ public class BranchDao {
 
 	public Branch saveBranch(Branch branch, int cid) {
 		Company company = companyDao.getCompanyById(cid);
-		branch.setCompany(company);
-		return branchRepo.save(branch);
+		if (company != null) {
+			branch.setCompany(company);
+			return branchRepo.save(branch);
+		} else {
+			return null;
+		}
 
 	}
 
@@ -28,26 +32,29 @@ public class BranchDao {
 		if (branch2 != null) {
 			branch.setId(bid);
 			branch.setCompany(branch2.getCompany());
-
+			return branchRepo.save(branch);
+		} else {
+			return null;
 		}
-		return branchRepo.save(branch);
 
 	}
 
 	public Branch deleteBranch(int bid) {
 		Branch branch = branchRepo.findById(bid).get();
-		if(branch!=null) {
-		branchRepo.deleteById(bid);
-		return branch;
-		}else
+		if (branch != null) {
+			branchRepo.deleteById(bid);
+			return branch;
+		} else {
 			return null;
+		}
 	}
 
 	public Branch getBranchById(int bid) {
 		if (branchRepo.findById(bid).isPresent()) {
 			return branchRepo.findById(bid).get();
-		} else
+		} else {
 			return null;
+		}
 	}
 
 	public Branch getBranchByManagerName(String managerName) {
