@@ -66,7 +66,7 @@ public class ShipmentService {
 			ResponseStructure<Shipment> responseStructure = new ResponseStructure<Shipment>();
 			responseStructure.setMessage("successfully deleted");
 			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(shipment);
+			responseStructure.setData(sdao.deleteShipment(id));
 			return new ResponseEntity<ResponseStructure<Shipment>>(responseStructure, HttpStatus.OK);
 		} else {
 			throw new IdNotFoundException("Id not Found");
