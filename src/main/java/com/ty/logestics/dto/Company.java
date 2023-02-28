@@ -17,7 +17,7 @@ public class Company {
  
 	@Id
 	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comp_seq")
-    @GenericGenerator(name = "comp_seq", strategy = "com.ty.logestics.dto.StringPrefixedSequenceIdGenerator",
+    @GenericGenerator(name = "comp_seq", strategy = "com.ty.logestics.util.StringPreFixedIdSequenceGenerator",
             parameters = {
             @Parameter(name = StringPreFixedIdSequenceGenerator.INCREMENT_PARAM, value = "50"),
             @Parameter(name = StringPreFixedIdSequenceGenerator.VALUE_PREFIXE_PARAMETER, value = "TYSS_"),
