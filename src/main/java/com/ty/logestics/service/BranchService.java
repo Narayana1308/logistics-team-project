@@ -11,7 +11,10 @@ import com.ty.logestics.dao.BranchDao;
 import com.ty.logestics.dao.CompanyDao;
 import com.ty.logestics.dto.Branch;
 import com.ty.logestics.dto.Company;
+import com.ty.logestics.exception.BranchIdNotFoundException;
+import com.ty.logestics.exception.BranchManagerNotFoundException;
 import com.ty.logestics.exception.IdNotFoundException;
+import com.ty.logestics.exception.ListEmptyException;
 import com.ty.logestics.util.ResponseStructure;
 
 @Service
@@ -34,7 +37,7 @@ public class BranchService {
 			return new ResponseEntity<ResponseStructure<Branch>>(structure, HttpStatus.CREATED);
 
 		} else {
-			return null;
+			throw new CompanyIdNotFoundException;
 		}
 
 	}
@@ -48,7 +51,7 @@ public class BranchService {
 			structure.setData(branch);
 			return new ResponseEntity<ResponseStructure<Branch>>(structure, HttpStatus.OK);
 		} else {
-			throw new IdNotFoundException();
+			throw new BranchIdNotFoundException();
 		}
 
 	}
@@ -62,7 +65,7 @@ public class BranchService {
 			structure.setData(branch2);
 			return new ResponseEntity<ResponseStructure<Branch>>(structure, HttpStatus.OK);
 		} else {
-			throw new IdNotFoundException();
+			throw new BranchIdNotFoundException();
 		}
 	}
 
@@ -76,7 +79,7 @@ public class BranchService {
 			structure.setData(barnch2);
 			return new ResponseEntity<ResponseStructure<Branch>>(structure, HttpStatus.OK);
 		} else {
-			throw new IdNotFoundException();
+			throw new BranchIdNotFoundException();
 		}
 	}
 
@@ -89,9 +92,9 @@ public class BranchService {
 			structure.setData(branch2);
 			return new ResponseEntity<ResponseStructure<List<Branch>>>(structure, HttpStatus.OK);
 		} else {
-
-			throw new IdNotFoundException();
+			throw new ListEmptyException();
 		}
+		
 	}
 
 	public ResponseEntity<ResponseStructure<Branch>> getBranchByManager(String managerName) {
@@ -104,7 +107,7 @@ public class BranchService {
 			return new ResponseEntity<ResponseStructure<Branch>>(structure, HttpStatus.OK);
 
 		} else
-			throw new IdNotFoundException();
+			throw new BranchManagerNotFoundException();
 
 	}
 
