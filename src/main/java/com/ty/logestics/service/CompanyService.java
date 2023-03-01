@@ -39,7 +39,7 @@ public class CompanyService {
 		}
 	}
 	
-	public ResponseEntity<ResponseStructure<Company>> getCompanyId(int id){
+	public ResponseEntity<ResponseStructure<Company>> getCompanyId(String id){
 		ResponseStructure<Company> structure=new ResponseStructure<>();
 		Company company2=companyDao.getCompanyById(id);
 		if(company2!=null) {
@@ -54,7 +54,7 @@ public class CompanyService {
 		}
 	}
 	
-	public ResponseEntity<ResponseStructure<Company>> deleteCompanyId(int id){
+	public ResponseEntity<ResponseStructure<Company>> deleteCompanyId(String id){
 		Company company=companyDao.deleteCompany(id);
 		if(company!=null) {
 			ResponseStructure<Company> structure=new ResponseStructure<>();
