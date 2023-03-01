@@ -30,9 +30,28 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 		ResponseStructure<String> structure=new ResponseStructure<String>();
 		structure.setMessage(ex.getMessage());
 		structure.setStatus(HttpStatus.NOT_FOUND.value());
-		structure.setData("no company for given id");
+		structure.setData("no such id  present");
 		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
 		
 	}
+	@ExceptionHandler(UserIdNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> userIdNoTFound(UserIdNotFoundException ex){
+		ResponseStructure<String> structure=new ResponseStructure<String>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("userid not found");
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+		
+	}
+	@ExceptionHandler(UserEmailNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> userEmailNoTFound(UserEmailNotFoundException ex){
+		ResponseStructure<String> structure=new ResponseStructure<String>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("user email not found");
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+		
+	}
+	
 
 }
