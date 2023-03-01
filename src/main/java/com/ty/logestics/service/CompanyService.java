@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ty.logestics.dao.CompanyDao;
 import com.ty.logestics.dto.Company;
-import com.ty.logestics.exception.IdNotFoundException;
+import com.ty.logestics.exception.CompanyIdNotFoundException;
 import com.ty.logestics.util.ResponseStructure;
 
 @Service
@@ -35,7 +35,7 @@ public class CompanyService {
 			structure.setData(daoCompany);
 			return new ResponseEntity<ResponseStructure<Company>> (structure,HttpStatus.OK);
 		}else {
-			throw new IdNotFoundException("Id not found for given company ");
+			throw new CompanyIdNotFoundException("Id not found for given company ");
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class CompanyService {
 			return new ResponseEntity<ResponseStructure<Company>> (structure,HttpStatus.FOUND);	
 			
 		} else {
-			throw new IdNotFoundException("Id not found for given company ");
+			throw new CompanyIdNotFoundException("Id not found for given company ");
 		}
 	}
 	
@@ -63,7 +63,7 @@ public class CompanyService {
 			structure.setData(company);
 			return new ResponseEntity<ResponseStructure<Company>> (structure,HttpStatus.OK);		
 		} else {
-			throw new IdNotFoundException("Id not found for given company ");
+			throw new CompanyIdNotFoundException("Id not found for given company ");
 		}
 	}
 
