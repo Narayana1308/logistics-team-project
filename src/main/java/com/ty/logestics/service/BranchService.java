@@ -22,7 +22,7 @@ public class BranchService {
 	@Autowired
 	private CompanyDao companyDao;
 
-	public ResponseEntity<ResponseStructure<Branch>> saveBranch(Branch branch, int cid) {
+	public ResponseEntity<ResponseStructure<Branch>> saveBranch(Branch branch, String cid) {
 		ResponseStructure<Branch> structure = new ResponseStructure<>();
 		Company company = companyDao.getCompanyById(cid);
 
