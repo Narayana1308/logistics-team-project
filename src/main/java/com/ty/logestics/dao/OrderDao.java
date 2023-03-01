@@ -36,8 +36,13 @@ public class OrderDao {
 	}
 	
 	public Orders getOrderById(int id) {
+		if(orderRepo.findById(id).isPresent()) {
+			Orders orders=orderRepo.findById(id).get();
 		
-		return orderRepo.findById(id).get();
+		return orders;
+		}else {
+			return null;
+		}
 		
 	}
 

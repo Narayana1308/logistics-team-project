@@ -7,8 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.ty.logestics.dao.ProductDao;
 import com.ty.logestics.dto.Product;
+<<<<<<< HEAD
 import com.ty.logestics.exception.IdNotFoundException;
 import com.ty.logestics.exception.ProductIdNotFoundException;
+=======
+import com.ty.logestics.exception.CompanyIdNotFoundException;
+>>>>>>> 5c49b4a3150e03afc10fe761aec54494a93c091e
 import com.ty.logestics.util.ResponseStructure;
 
 @Service
@@ -38,7 +42,11 @@ public class ProductService {
 
 			return new ResponseEntity<ResponseStructure<Product>>(responseStructure, HttpStatus.OK);
 		} else {
+<<<<<<< HEAD
 			throw new ProductIdNotFoundException("Given ProductId Not Found");
+=======
+			throw new CompanyIdNotFoundException("Given Id Not Found");
+>>>>>>> 5c49b4a3150e03afc10fe761aec54494a93c091e
 		}
 
 	}
@@ -53,7 +61,11 @@ public class ProductService {
 
 			return new ResponseEntity<ResponseStructure<Product>>(responseStructure, HttpStatus.OK);
 		} else {
+<<<<<<< HEAD
 			throw new ProductIdNotFoundException("Given ProductId Not Found");
+=======
+			throw new CompanyIdNotFoundException("Given Id Not Found");
+>>>>>>> 5c49b4a3150e03afc10fe761aec54494a93c091e
 
 		}
 	}
@@ -68,7 +80,11 @@ public class ProductService {
 
 			return new ResponseEntity<ResponseStructure<Product>>(responseStructure, HttpStatus.FOUND);
 		} else {
+<<<<<<< HEAD
 			throw new ProductIdNotFoundException("Given ProductId Not Found");
+=======
+			throw new CompanyIdNotFoundException("Given Id Not Found");
+>>>>>>> 5c49b4a3150e03afc10fe761aec54494a93c091e
 
 		}
 	}
