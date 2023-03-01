@@ -31,12 +31,12 @@ public class CompanyController {
 	}
 	
 	@GetMapping("/company")
-	public ResponseEntity<ResponseStructure<Company>> getEntity(@RequestParam int id){
+	public ResponseEntity<ResponseStructure<Company>> getEntity(@RequestParam String id){
 		return service.getCompanyId(id);
 	}
 	
 	@DeleteMapping("/company")
-	public ResponseEntity<ResponseStructure<Company>> deleteCompany(@RequestParam int id){
+	public ResponseEntity<ResponseStructure<Company>> deleteCompany(@RequestParam String id){
 		return service.deleteCompanyId(id);
 	}
 	
