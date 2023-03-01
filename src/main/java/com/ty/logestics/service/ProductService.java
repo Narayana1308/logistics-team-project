@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ty.logestics.dao.ProductDao;
 import com.ty.logestics.dto.Product;
 import com.ty.logestics.exception.IdNotFoundException;
+import com.ty.logestics.exception.ProductIdNotFoundException;
 import com.ty.logestics.util.ResponseStructure;
 
 @Service
@@ -37,7 +38,7 @@ public class ProductService {
 
 			return new ResponseEntity<ResponseStructure<Product>>(responseStructure, HttpStatus.OK);
 		} else {
-			throw new IdNotFoundException("Given Id Not Found");
+			throw new ProductIdNotFoundException("Given ProductId Not Found");
 		}
 
 	}
@@ -52,7 +53,7 @@ public class ProductService {
 
 			return new ResponseEntity<ResponseStructure<Product>>(responseStructure, HttpStatus.OK);
 		} else {
-			throw new IdNotFoundException("Given Id Not Found");
+			throw new ProductIdNotFoundException("Given ProductId Not Found");
 
 		}
 	}
@@ -67,7 +68,7 @@ public class ProductService {
 
 			return new ResponseEntity<ResponseStructure<Product>>(responseStructure, HttpStatus.FOUND);
 		} else {
-			throw new IdNotFoundException("Given Id Not Found");
+			throw new ProductIdNotFoundException("Given ProductId Not Found");
 
 		}
 	}
