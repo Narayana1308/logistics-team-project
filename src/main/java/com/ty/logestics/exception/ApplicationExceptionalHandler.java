@@ -1,5 +1,7 @@
 package com.ty.logestics.exception;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,6 +23,16 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 		structre.setData("no company for given id");
 		return new ResponseEntity<ResponseStructure<String>> (structre, HttpStatus.NOT_FOUND);
 	
+	}
+	
+	@ExceptionHandler(NoSuchElementException.class)
+	public ResponseEntity<ResponseStructure<String>> noSuchElementExceptionHandler(NoSuchElementException ex){
+		ResponseStructure<String> structure=new ResponseStructure<String>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("no company for given id");
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+		
 	}
 
 }

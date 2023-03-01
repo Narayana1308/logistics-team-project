@@ -16,7 +16,7 @@ public class BranchDao {
 	@Autowired
 	public CompanyDao companyDao;
 
-	public Branch saveBranch(Branch branch, int cid) {
+	public Branch saveBranch(Branch branch, String cid) {
 		Company company = companyDao.getCompanyById(cid);
 		branch.setCompany(company);
 		return branchRepo.save(branch);

@@ -21,7 +21,7 @@ public class BranchService {
 	@Autowired
 	private BranchDao dao;
 
-	public ResponseEntity<ResponseStructure<Branch>> saveBranch(Branch branch, int cid) {
+	public ResponseEntity<ResponseStructure<Branch>> saveBranch(Branch branch, String cid) {
 		ResponseStructure<Branch> structure = new ResponseStructure<>();
 		Branch daoBranch = dao.saveBranch(branch, cid);
 		if (daoBranch != null) {

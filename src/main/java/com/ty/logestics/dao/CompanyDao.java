@@ -28,20 +28,20 @@ public class CompanyDao {
 		}
 	}
 
-	public Company deleteCompany(int id) {
-		if (companyRepo.findById(id).isPresent()) {
-			Company company = companyRepo.findById(id).get();
-			companyRepo.delete(company);
-			return company;
+	public Company deleteCompany(String id) {
+		Company company2=companyRepo.findByCompanyId(id);
+		if (company2!=null) {
+			companyRepo.delete(company2);
+			return company2;
 		} else {
 			return null;
 		}
 
 	}
 
-	public Company getCompanyById(int id) {
+	public Company getCompanyById(String id) {
 
-		return companyRepo.findById(id).get();
+		return companyRepo.findByCompanyId(id);
 
 	}
 
