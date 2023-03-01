@@ -23,7 +23,7 @@ public class BranchController {
 	private BranchService service;
 	
 	@PostMapping("/branch")
-	public ResponseEntity<ResponseStructure<Branch>> saveBranch(@RequestBody  Branch branch, @RequestParam int cid){
+	public ResponseEntity<ResponseStructure<Branch>> saveBranch(@RequestBody  Branch branch, @RequestParam String cid){
 		return service.saveBranch(branch, cid);
 	}
 	
@@ -39,11 +39,11 @@ public class BranchController {
 	public ResponseEntity<ResponseStructure<Branch>> updateBranch(@RequestParam int id,@RequestBody Branch branch){
 		return service.updateBranch(id, branch);
 	}
-	@GetMapping("/branch")
+	@GetMapping("/allbranches")
 	public ResponseEntity<ResponseStructure<List<Branch>>> getAllBranches(){
 		return service.getAllBranches();
 	}
-	@GetMapping("/branch")
+	@GetMapping("/branchbymanager")
 	public ResponseEntity<ResponseStructure<Branch>> getByManager(@RequestParam String managerName){
 		return service.getBranchByManager(managerName);
 	}

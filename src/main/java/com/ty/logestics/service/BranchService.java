@@ -98,7 +98,7 @@ public class BranchService {
 		ResponseStructure<Branch> structure = new ResponseStructure<>();
 		Branch branch2 = branchDao.getBranchByManagerName(managerName);
 		if (branch2 != null) {
-			structure.setMessage(managerName);
+			structure.setMessage("found");
 			structure.setStatus(HttpStatus.OK.value());
 			structure.setData(branch2);
 			return new ResponseEntity<ResponseStructure<Branch>>(structure, HttpStatus.OK);
