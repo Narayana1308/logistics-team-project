@@ -16,24 +16,26 @@ public class UserDao {
 	}
 
 	public User updateUser(String id, User user) {
-		//if (repo.findById(id).isPresent()) {
+		
+		User user2=repo.findByUserId(id);
+		if (user2!=null) {
 			user.setId(id);
 			return repo.save(user);
-//		} else {
-//           return null;
-//		}
+		} else {
+           return null;
+		}
 	}
-	public User deleteUser(int id) {
-		User user=repo.findById(id).get();
+	public User deleteUser(String id) {
+		User user=repo.findByUserId(id);
 		if(user!=null) {
-			repo.deleteById(id);
+			repo.delete(user);
 			return user;
 		}else {
 			return null;
 		}
 	}
-	public User getUserById(int id) {
-			return repo.findById(id).get();
+	public User getUserById(String id) {
+			return repo.findByUserId(id);
 	}
 	public User loginUser(String email) {
 		User user=repo.findByEmail(email);
