@@ -13,7 +13,7 @@ import com.ty.logestics.dao.OrderDao;
 import com.ty.logestics.dao.ProductDao;
 import com.ty.logestics.dto.Orders;
 import com.ty.logestics.dto.Product;
-import com.ty.logestics.exception.IdNotFoundException;
+import com.ty.logestics.exception.OrderIdNotFoundException;
 import com.ty.logestics.util.ResponseStructure;
 
 @Service
@@ -41,7 +41,7 @@ public class OrderService {
 			return new ResponseEntity<ResponseStructure<Orders>> (structure,HttpStatus.CREATED);
 			
 		}else {
-			throw new IdNotFoundException();
+			throw new OrderIdNotFoundException();
 		}
 	}
 	
@@ -59,7 +59,7 @@ public class OrderService {
 			return new ResponseEntity<ResponseStructure<Orders>> (structure,HttpStatus.OK);
 			
 		}else {
-			throw new IdNotFoundException();
+			throw new OrderIdNotFoundException();
 		}
 	}
 	
@@ -72,7 +72,7 @@ public class OrderService {
 			structure.setData(order);
 			return new ResponseEntity<ResponseStructure<Orders>> (structure,HttpStatus.FOUND);
 		}else {
-			throw new IdNotFoundException();
+			throw new OrderIdNotFoundException();
 		}
 	}
 	public ResponseEntity<ResponseStructure<Orders>> deleteOrder(int oid){
@@ -86,7 +86,7 @@ public class OrderService {
 			return new ResponseEntity<ResponseStructure<Orders>> (structure,HttpStatus.OK);
 			
 		}else {
-			throw new IdNotFoundException();
+			throw new OrderIdNotFoundException();
 		}
 	}
 

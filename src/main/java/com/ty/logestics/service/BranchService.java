@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ty.logestics.dao.BranchDao;
 import com.ty.logestics.dto.Branch;
-import com.ty.logestics.exception.IdNotFoundException;
+import com.ty.logestics.exception.CompanyIdNotFoundException;
 import com.ty.logestics.util.ResponseStructure;
 
 
@@ -41,7 +41,7 @@ public class BranchService {
 			structure.setData(branch);
 			return new ResponseEntity<ResponseStructure<Branch>>(structure,HttpStatus.OK);
 		}else {
-			throw new IdNotFoundException();
+			throw new CompanyIdNotFoundException();
 		}
 		
 				
@@ -56,7 +56,7 @@ public class BranchService {
 			structure.setData(branch2);
 			return new ResponseEntity<ResponseStructure<Branch>>(structure,HttpStatus.OK);
 		}else {
-			throw new IdNotFoundException();
+			throw new CompanyIdNotFoundException();
 		}
 	}
 
@@ -71,7 +71,7 @@ public class BranchService {
 		return new ResponseEntity<ResponseStructure<Branch>>(structure,HttpStatus.OK);
 		}
 		else {
-			throw new IdNotFoundException();
+			throw new CompanyIdNotFoundException();
 		}
 	}
 	public ResponseEntity<ResponseStructure<List<Branch>>> getAllBranches() {
@@ -84,7 +84,7 @@ public class BranchService {
 			return new ResponseEntity<ResponseStructure<List<Branch>>>(structure,HttpStatus.OK);
 		}else {
 		
-		throw new IdNotFoundException();
+		throw new CompanyIdNotFoundException();
 		}
 	}
 	public ResponseEntity<ResponseStructure<Branch>> getBranchByManager(String managerName){
@@ -97,7 +97,7 @@ public class BranchService {
 			return new ResponseEntity<ResponseStructure<Branch>>(structure,HttpStatus.OK);
 			
 		}else
-			throw new IdNotFoundException();
+			throw new CompanyIdNotFoundException();
 		
 	}
 	
