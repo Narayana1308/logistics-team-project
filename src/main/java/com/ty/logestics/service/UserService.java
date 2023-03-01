@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.ty.logestics.dao.UserDao;
 import com.ty.logestics.dto.User;
-import com.ty.logestics.exception.CompanyIdNotFoundException;
 import com.ty.logestics.exception.UserEmailNotFoundException;
 import com.ty.logestics.exception.UserIdNotFoundException;
 import com.ty.logestics.util.ResponseStructure;
@@ -24,17 +23,18 @@ public class UserService {
 		structure.setData(dao.saveUser(user));
 		return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.CREATED);
 	}
-	public ResponseEntity<ResponseStructure<User>> updateUser(int u_id,User user){
+	public ResponseEntity<ResponseStructure<User>> updateUser(String u_id,User user){
 		User user2=dao.getUserById(u_id);
 		ResponseStructure<User> structure=new ResponseStructure<>();
 		if(user2!=null) {
 			structure.setMessage("updated succesfully");
 			structure.setStatus(HttpStatus.OK.value());
-			structure.setData(user2);
+			structure.setData(dao.updateUser(u_id, user));
 			return new ResponseEntity<ResponseStructure<User>>(structure,HttpStatus.OK);
 		}else {
-			throw new CompanyIdNotFoundException();
+			return null;
 		}
+
 	}
 	public ResponseEntity<ResponseStructure<User>> loginUser(String email, String password) {
 		User user = dao.getUserByEmail(email);
@@ -49,7 +49,7 @@ public class UserService {
 			throw new UserEmailNotFoundException();
 		}
 	}
-	public ResponseEntity<ResponseStructure<User>> getUserById(int id){
+	public ResponseEntity<ResponseStructure<User>> getUserById(String id){
 		User user=dao.getUserById(id);
 		ResponseStructure<User> structure=new ResponseStructure<>();
 		if(user!=null) {
@@ -61,13 +61,13 @@ public class UserService {
 			throw new UserIdNotFoundException();
 		}
 	}
-	public ResponseEntity<ResponseStructure<User>> deleteUserById(int id){
-		User user=dao.deleteUser(id);
+	public ResponseEntity<ResponseStructure<User>> deleteUserById(String id){
+		User user=dao.getUserById(id);
 		ResponseStructure<User> structure=new ResponseStructure<>();
 		if(user!=null) {
 			structure.setMessage("Successfully deleted");
 			structure.setStatus(HttpStatus.OK.value());
-			structure.setData(user);
+			structure.setData(dao.deleteUser(id));
 			return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.OK);
 		} else {
 			throw new UserIdNotFoundException();

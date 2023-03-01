@@ -26,7 +26,7 @@ public class GoodsService {
 	@Autowired
 	private GoodsDao goodsDao;
 	
-	public ResponseEntity<ResponseStructure<Goods>> saveGoods(int oid,int uid,int bid,Goods goods){
+	public ResponseEntity<ResponseStructure<Goods>> saveGoods(int oid,String uid,int bid,Goods goods){
 		Orders order=orderDao.getOrderById(oid);
 		Branch branch=branchDao.getBranchById(bid);
 		User user=userDao.getUserById(uid);

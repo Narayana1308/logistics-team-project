@@ -10,5 +10,7 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 	public User findByEmail(String email);
 	@Query("select user from User user where user.id=?1")
 	public User findByUserId(String id);
+//	@Query("delete user from User user where user.id=?1")
+//	public User deleteByid(String id);
 
 }
