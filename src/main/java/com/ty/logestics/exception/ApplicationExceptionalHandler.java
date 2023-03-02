@@ -25,15 +25,7 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 	
 	}
 	
-//	@ExceptionHandler(NoSuchElementException.class)
-//	public ResponseEntity<ResponseStructure<String>> noSuchElementExceptionHandler(NoSuchElementException ex){
-//		ResponseStructure<String> structure=new ResponseStructure<String>();
-//		structure.setMessage(ex.getMessage());
-//		structure.setStatus(HttpStatus.NOT_FOUND.value());
-//		structure.setData("no company for given id");
-//		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
-//		
-//	}
+
 	
 	@ExceptionHandler(OrderIdNotFoundException.class)
 	public ResponseEntity<ResponseStructure<String>> orderIdNotFoundExceptionalHandler(OrderIdNotFoundException ex){
@@ -65,6 +57,25 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
 		
 	}
+	@ExceptionHandler(InvalidPasswordException.class)
+	public ResponseEntity<ResponseStructure<String>> invalidPasssword(InvalidPasswordException ex){
+		ResponseStructure<String> structure=new ResponseStructure<String>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("invalid password");
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+		
+	}
+	@ExceptionHandler(GoodsIdNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> idnotfound(GoodsIdNotFoundException ex){
+		ResponseStructure<String> structure=new ResponseStructure<String>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("id not found ");
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+		
+	}
+	
 	
 
 }
