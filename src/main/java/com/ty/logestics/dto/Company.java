@@ -19,7 +19,7 @@ public class Company {
 	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comp_seq")
     @GenericGenerator(name = "comp_seq", strategy = "com.ty.logestics.util.StringPreFixedIdSequenceGenerator",
             parameters = {
-            @Parameter(name = StringPreFixedIdSequenceGenerator.INCREMENT_PARAM, value = "50"),
+            @Parameter(name = StringPreFixedIdSequenceGenerator.INCREMENT_PARAM, value = "1"),
             @Parameter(name = StringPreFixedIdSequenceGenerator.VALUE_PREFIXE_PARAMETER, value = "TYSS_"),
             @Parameter(name = StringPreFixedIdSequenceGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
 	private String id;

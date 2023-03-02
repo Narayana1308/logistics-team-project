@@ -18,11 +18,13 @@ public class GoodsDao {
 	}
 
 	public Goods updateGoods(int id, Goods goods) {
-		Goods goods2=repo.findById(id).get();
-		if (goods2!=null) {
+		
+		if (repo.findById(id).isPresent()) {
+			Goods goods2=repo.findById(id).get();
 			goods.setId(id);
 			goods.setBranch(goods2.getBranch());
 			goods.setOrder(goods2.getOrder());
+			goods.setUser(goods2.getUser());
 			return repo.save(goods);
 		} else {
 			return null;
@@ -30,8 +32,9 @@ public class GoodsDao {
 	}
 
 	public Goods deleteById(int id) {
-		Goods goods = repo.findById(id).get();
-		if (goods != null) {
+		
+		if (repo.findById(id).isPresent()) {
+			Goods goods = repo.findById(id).get();
 			repo.deleteById(id);
 			return goods;
 		} else {
@@ -40,7 +43,11 @@ public class GoodsDao {
 	}
 
 	public Goods getById(int id) {
-		return repo.findById(id).get();
+		
+		if(repo.findById(id).isPresent()) {
+			return repo.findById(id).get();
+		}
+		return null;
 	}
 
 }
