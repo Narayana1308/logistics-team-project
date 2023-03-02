@@ -15,8 +15,8 @@ import com.ty.logestics.util.ResponseStructure;
 @ControllerAdvice
 public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandler {
 	
-	@ExceptionHandler(IdNotFoundException.class)
-	public ResponseEntity<ResponseStructure<String>> idNotFoundExceptionHandler(IdNotFoundException ex){
+	@ExceptionHandler(CompanyIdNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> idNotFoundExceptionHandler(CompanyIdNotFoundException ex){
 		ResponseStructure<String> structre= new ResponseStructure<String>();
 		structre.setMessage(ex.getMessage());
 		structre.setStatus(HttpStatus.NOT_FOUND.value());
@@ -25,15 +25,20 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 	
 	}
 	
-//	@ExceptionHandler(NoSuchElementException.class)
-//	public ResponseEntity<ResponseStructure<String>> noSuchElementExceptionHandler(NoSuchElementException ex){
-//		ResponseStructure<String> structure=new ResponseStructure<String>();
-//		structure.setMessage(ex.getMessage());
-//		structure.setStatus(HttpStatus.NOT_FOUND.value());
-//		structure.setData("no such id  present");
-//		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
-//		
-//	}
+
+	
+	@ExceptionHandler(OrderIdNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> orderIdNotFoundExceptionalHandler(OrderIdNotFoundException ex){
+		ResponseStructure<String> structure=new ResponseStructure<>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+
+		structure.setData("no Order found for given id");
+		return new ResponseEntity<ResponseStructure<String>> (structure,HttpStatus.NOT_FOUND);
+
+		
+
+	}
 	@ExceptionHandler(UserIdNotFoundException.class)
 	public ResponseEntity<ResponseStructure<String>> userIdNoTFound(UserIdNotFoundException ex){
 		ResponseStructure<String> structure=new ResponseStructure<String>();

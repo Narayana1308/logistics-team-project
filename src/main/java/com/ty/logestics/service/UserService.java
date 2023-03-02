@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.ty.logestics.dao.UserDao;
 import com.ty.logestics.dto.User;
+
 import com.ty.logestics.exception.IdNotFoundException;
 import com.ty.logestics.exception.InvalidPasswordException;
+
 import com.ty.logestics.exception.UserEmailNotFoundException;
 import com.ty.logestics.exception.UserIdNotFoundException;
 import com.ty.logestics.util.ResponseStructure;
@@ -36,7 +38,8 @@ public class UserService {
 			return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.OK);
 		} else {
 			throw new UserIdNotFoundException();
-		}
+      }
+
 	}
 
 	public ResponseEntity<ResponseStructure<User>> loginUser(String email, String password)  {
