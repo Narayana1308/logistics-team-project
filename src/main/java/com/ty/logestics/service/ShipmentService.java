@@ -9,9 +9,13 @@ import com.ty.logestics.dao.GoodsDao;
 import com.ty.logestics.dao.ShipmentDao;
 import com.ty.logestics.dto.Goods;
 import com.ty.logestics.dto.Shipment;
+<<<<<<< HEAD
 import com.ty.logestics.exception.GoodsIdNotFoundException;
 import com.ty.logestics.exception.IdNotFoundException;
 import com.ty.logestics.exception.ShipmentIdNotFoundException;
+=======
+import com.ty.logestics.exception.CompanyIdNotFoundException;
+>>>>>>> a784241d8fc2fd669415c0cd01c36eb49a9b3c39
 import com.ty.logestics.util.ResponseStructure;
 
 @Service
@@ -39,7 +43,11 @@ public class ShipmentService {
 		}
 		
 		else
+<<<<<<< HEAD
 			throw new GoodsIdNotFoundException();
+=======
+			throw new CompanyIdNotFoundException("Id not Found");
+>>>>>>> a784241d8fc2fd669415c0cd01c36eb49a9b3c39
 	}
 
 	public ResponseEntity<ResponseStructure<Shipment>> updateShipment(int id, Shipment shipment) {
@@ -57,7 +65,11 @@ public class ShipmentService {
 			return new ResponseEntity<ResponseStructure<Shipment>>(structure, HttpStatus.OK);
 
 		} else
+<<<<<<< HEAD
 			throw new ShipmentIdNotFoundException();
+=======
+			throw new CompanyIdNotFoundException();
+>>>>>>> a784241d8fc2fd669415c0cd01c36eb49a9b3c39
 
 	}
 
@@ -71,7 +83,11 @@ public class ShipmentService {
 			responseStructure.setData(sdao.deleteShipment(id));
 			return new ResponseEntity<ResponseStructure<Shipment>>(responseStructure, HttpStatus.OK);
 		} else {
+<<<<<<< HEAD
 			throw new ShipmentIdNotFoundException();
+=======
+			throw new CompanyIdNotFoundException("Id not Found");
+>>>>>>> a784241d8fc2fd669415c0cd01c36eb49a9b3c39
 		}
 
 	}
@@ -86,7 +102,12 @@ public class ShipmentService {
 
 			return new ResponseEntity<ResponseStructure<Shipment>>(responseStructure, HttpStatus.FOUND);
 		} else {
+<<<<<<< HEAD
 			throw new ShipmentIdNotFoundException();
+=======
+			throw new CompanyIdNotFoundException("Given Id Not Found");
+
+>>>>>>> a784241d8fc2fd669415c0cd01c36eb49a9b3c39
 		}
 	}
 }

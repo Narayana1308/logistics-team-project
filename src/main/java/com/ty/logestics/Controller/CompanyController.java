@@ -56,5 +56,18 @@ public class CompanyController {
 		return service.deleteCompanyId(id);
 	}
 	
-
+	@GetMapping("/companybyemail")
+	public ResponseEntity<ResponseStructure<Company>> getEntityByEmail(@RequestParam String email){
+		return service.getCompanyEmail(email);
+	}
+	
+	@GetMapping("/companybyceo")
+	public ResponseEntity<ResponseStructure<Company>> getEntityByCeo(@RequestParam String ceo){
+		return service.getCompanyCeo(ceo);
+	}
+	
+	@GetMapping("/companybyname")
+	public ResponseEntity<ResponseStructure<Company>> getEntityByName(@RequestParam String name){
+		return service.getCompanyName(name);
+	}
 }

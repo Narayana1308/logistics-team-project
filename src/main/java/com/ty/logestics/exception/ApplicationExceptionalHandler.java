@@ -1,6 +1,9 @@
 package com.ty.logestics.exception;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+
+import javax.management.ListenerNotFoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +18,8 @@ import com.ty.logestics.util.ResponseStructure;
 @ControllerAdvice
 public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandler {
 	
-	@ExceptionHandler(IdNotFoundException.class)
-	public ResponseEntity<ResponseStructure<String>> idNotFoundExceptionHandler(IdNotFoundException ex){
+	@ExceptionHandler(CompanyIdNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> idNotFoundExceptionHandler(CompanyIdNotFoundException ex){
 		ResponseStructure<String> structre= new ResponseStructure<String>();
 		structre.setMessage(ex.getMessage());
 		structre.setStatus(HttpStatus.NOT_FOUND.value());
@@ -25,15 +28,20 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 	
 	}
 	
-//	@ExceptionHandler(NoSuchElementException.class)
-//	public ResponseEntity<ResponseStructure<String>> noSuchElementExceptionHandler(NoSuchElementException ex){
-//		ResponseStructure<String> structure=new ResponseStructure<String>();
-//		structure.setMessage(ex.getMessage());
-//		structure.setStatus(HttpStatus.NOT_FOUND.value());
-//		structure.setData("no such id  present");
-//		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
-//		
-//	}
+
+	
+	@ExceptionHandler(OrderIdNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> orderIdNotFoundExceptionalHandler(OrderIdNotFoundException ex){
+		ResponseStructure<String> structure=new ResponseStructure<>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+
+		structure.setData("no Order found for given id");
+		return new ResponseEntity<ResponseStructure<String>> (structure,HttpStatus.NOT_FOUND);
+
+		
+
+	}
 	@ExceptionHandler(UserIdNotFoundException.class)
 	public ResponseEntity<ResponseStructure<String>> userIdNoTFound(UserIdNotFoundException ex){
 		ResponseStructure<String> structure=new ResponseStructure<String>();
@@ -51,6 +59,31 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 		structure.setData("user email not found");
 		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
 		
+	}
+
+	@ExceptionHandler(BranchIdNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> branchIdNotFound(BranchIdNotFoundException ex){
+		ResponseStructure<String> structure=new ResponseStructure<>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("branch Id not found");
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+	}
+	@ExceptionHandler(BranchManagerNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> branchManagerNotFound(BranchManagerNotFoundException ex){
+		ResponseStructure<String> structure=new ResponseStructure<>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("branch manager not found");
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+	}
+	@ExceptionHandler(ListEmptyException.class)
+	public ResponseEntity<ResponseStructure<String>> listNotFound(ListenerNotFoundException ex){
+		ResponseStructure<String> structure=new ResponseStructure<>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("branches list not found");
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
 	}
 	@ExceptionHandler(InvalidPasswordException.class)
 	public ResponseEntity<ResponseStructure<String>> invalidPasssword(InvalidPasswordException ex){
