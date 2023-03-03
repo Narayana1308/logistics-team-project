@@ -56,16 +56,25 @@ public class CompanyController {
 		return service.deleteCompanyId(id);
 	}
 	
+	@ApiOperation(value = "get the company ", notes = "Api is used get the company based on the email id ")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "successfully found"),
+			@ApiResponse(code = 404, message = "not found") })
 	@GetMapping("/companybyemail")
 	public ResponseEntity<ResponseStructure<Company>> getEntityByEmail(@RequestParam String email){
 		return service.getCompanyEmail(email);
 	}
 	
+	@ApiOperation(value = "get the company ", notes = "Api is used get the company based on the ceo name ")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "successfully found"),
+			@ApiResponse(code = 404, message = "not found") })
 	@GetMapping("/companybyceo")
 	public ResponseEntity<ResponseStructure<Company>> getEntityByCeo(@RequestParam String ceo){
 		return service.getCompanyCeo(ceo);
 	}
 	
+	@ApiOperation(value = "get the company ", notes = "Api is used get the company based on the company name ")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "successfully found"),
+			@ApiResponse(code = 404, message = "not found") })
 	@GetMapping("/companybyname")
 	public ResponseEntity<ResponseStructure<Company>> getEntityByName(@RequestParam String name){
 		return service.getCompanyName(name);
