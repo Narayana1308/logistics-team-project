@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.ty.logestics.dao.UserDao;
 import com.ty.logestics.dto.User;
 
-import com.ty.logestics.exception.IdNotFoundException;
 import com.ty.logestics.exception.InvalidPasswordException;
 
 import com.ty.logestics.exception.UserEmailNotFoundException;

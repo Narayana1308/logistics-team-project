@@ -66,5 +66,44 @@ public class CompanyService {
 			throw new CompanyIdNotFoundException("Id not found for given company ");
 		}
 	}
+	
+	public ResponseEntity<ResponseStructure<Company>> getCompanyEmail(String email){
+		ResponseStructure<Company> structure=new ResponseStructure<>();
+		Company company=companyDao.getCompanyByEmail(email);
+		if(company!=null) {
+			structure.setMessage("Successfully found Company by email");
+			structure.setStatus(HttpStatus.FOUND.value());
+			structure.setData(company);
+			return new ResponseEntity<ResponseStructure<Company>> (structure,HttpStatus.FOUND);	
+		} else {
+			throw new CompanyIdNotFoundException("company does not exist of this given email id");
+		}
+	}
+	
+	public ResponseEntity<ResponseStructure<Company>> getCompanyCeo(String ceo){
+		ResponseStructure<Company> structure=new ResponseStructure<>();
+		Company company=companyDao.getCompanyByCeoName(ceo);
+		if(company!=null) {
+			structure.setMessage("Successfully found Company by Ceo Name");
+			structure.setStatus(HttpStatus.FOUND.value());
+			structure.setData(company);
+			return new ResponseEntity<ResponseStructure<Company>> (structure,HttpStatus.FOUND);	
+	} else {
+		throw new CompanyIdNotFoundException("company does not exist of this given ceo name");
+	}
 
+}
+	public ResponseEntity<ResponseStructure<Company>> getCompanyName(String name){
+		ResponseStructure<Company> structure=new ResponseStructure<>();
+		Company company=companyDao.getCompanyByCompanyName(name);
+		if(company!=null) {
+			structure.setMessage("Successfully found Company by  Name");
+			structure.setStatus(HttpStatus.FOUND.value());
+			structure.setData(company);
+			return new ResponseEntity<ResponseStructure<Company>> (structure,HttpStatus.FOUND);	
+	} else {
+		throw new CompanyIdNotFoundException("company does not exist of this given  name");
+	}
+	}
+	
 }
