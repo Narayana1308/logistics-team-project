@@ -14,27 +14,43 @@ import com.ty.logestics.dto.Company;
 import com.ty.logestics.service.CompanyService;
 import com.ty.logestics.util.ResponseStructure;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 public class CompanyController {
 	
 	@Autowired
 	private CompanyService service;
 	
+	
+	@ApiOperation(value = "save the company ", notes = "Api is used save the company ")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "successfully created"),
+			@ApiResponse(code = 404, message = "not found") })
 	@PostMapping("/company")
 	public ResponseEntity<ResponseStructure<Company>> saveCompany(@RequestBody Company company){
 		return service.saveCompany(company);
 	}
 	
+	@ApiOperation(value = "update the order ", notes = "Api is used update the company based on the company id ")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "successfully updated"),
+			@ApiResponse(code = 404, message = "not found") })
 	@PutMapping("/company")
 	public ResponseEntity<ResponseStructure<Company>> updateCompany( @RequestParam String id ,@RequestBody Company company){
 		return service.updateCompany(id, company);
 	}
+	@ApiOperation(value = "get the goods ", notes = "Api is used get the company based on the company id ")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "successfully found"),
+			@ApiResponse(code = 404, message = "not found") })
 	
 	@GetMapping("/company")
 	public ResponseEntity<ResponseStructure<Company>> getEntity(@RequestParam String id){
 		return service.getCompanyId(id);
 	}
-	
+	@ApiOperation(value = "delete the company ", notes = "Api is used delete the company based on the company id ")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "successfully deleted"),
+			@ApiResponse(code = 404, message = "not found") })
 	@DeleteMapping("/company")
 	public ResponseEntity<ResponseStructure<Company>> deleteCompany(@RequestParam String id){
 		return service.deleteCompanyId(id);

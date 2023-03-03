@@ -70,6 +70,15 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
 		
 	}
+	@ExceptionHandler(ShipmentIdNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> shipmentId(ShipmentIdNotFoundException ex){
+		ResponseStructure<String> structure=new ResponseStructure<String>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData(" shipment id not found ");
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+		
+	}
 	
 	
 
