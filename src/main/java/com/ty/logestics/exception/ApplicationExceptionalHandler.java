@@ -2,6 +2,7 @@ package com.ty.logestics.exception;
 
 import java.util.NoSuchElementException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -68,6 +69,19 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 		structure.setStatus(HttpStatus.NOT_FOUND.value());
 		structure.setData(" shipment id not found ");
 		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+		
+	}
+	
+	
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<ResponseStructure<String>> dataViolation(DataIntegrityViolationException exception){
+		
+		ResponseStructure<String> structure=new ResponseStructure<>();
+		structure.setMessage("bad request");
+		structure.setStatus(HttpStatus.BAD_REQUEST.value());
+		structure.setData("Data integrity violation exception");
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.BAD_REQUEST);
+		
 		
 	}
 	
