@@ -89,7 +89,7 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 		ResponseStructure<String> structure=new ResponseStructure<>();
 		structure.setMessage(ex.getMessage());
 		structure.setStatus(HttpStatus.NOT_FOUND.value());
-		structure.setData("branches list not found");
+		structure.setData("branch list is empty");
 		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
 	}
 	
