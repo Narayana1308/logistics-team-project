@@ -64,7 +64,12 @@ public class BranchDao {
 	}
 
 	public List<Branch> getAllBranches() {
-		return branchRepo.findAll();
+		List<Branch> list=branchRepo.findAll();
+		if(list!=null) {
+			return list;
+		}else {
+		return null;
+		}
 
 	}
 
