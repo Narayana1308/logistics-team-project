@@ -13,6 +13,8 @@ import com.ty.logestics.dto.Branch;
 import com.ty.logestics.dto.Goods;
 import com.ty.logestics.dto.Orders;
 import com.ty.logestics.dto.User;
+import com.ty.logestics.exception.GoodsIdNotFoundException;
+import com.ty.logestics.exception.InvalidIdException;
 import com.ty.logestics.util.ResponseStructure;
 
 @Service
@@ -32,26 +34,29 @@ public class GoodsService {
 		User user=userDao.getUserById(uid);
 		ResponseStructure<Goods> structure=new ResponseStructure<>();
 		if(order!=null && branch !=null && user!=null) {
+			goods.setBranch(branch);
+			goods.setOrder(order);
+			goods.setUser(user);
 			structure.setMessage("successfully saved");
 			structure.setStatus(HttpStatus.CREATED.value());
 			structure.setData(goodsDao.saveGoods(goods));
 			return new ResponseEntity<ResponseStructure<Goods>>(structure,HttpStatus.CREATED);
 		}
 		else {
-			return null;
+		   throw new InvalidIdException();
 		}				
 	}
 	public ResponseEntity<ResponseStructure<Goods>> updateGoods(int gid,Goods goods){
-		Goods goods2=goodsDao.getById(gid);
+		Goods goods2=goodsDao.updateGoods(gid, goods);
 		ResponseStructure<Goods> structure=new ResponseStructure<>();
 		if(goods2!=null) {
 			structure.setMessage("updated successfully");
 			structure.setStatus(HttpStatus.OK.value());
-			structure.setData(goodsDao.updateGoods(gid, goods2));
+			structure.setData(goods2);
 			return new ResponseEntity<ResponseStructure<Goods>>(structure,HttpStatus.OK);
 		}
 		else {
-			return null;
+			throw new GoodsIdNotFoundException();
 		}
 	}
 	public ResponseEntity<ResponseStructure<Goods>> getGoodsById(int gid){
@@ -64,7 +69,7 @@ public class GoodsService {
 			return new ResponseEntity<ResponseStructure<Goods>>(structure,HttpStatus.FOUND);
 		}
 		else {
-			return null;
+			throw new GoodsIdNotFoundException(); 
 		}
 	}
 	public ResponseEntity<ResponseStructure<Goods>> deleteGoodsById(int id){
@@ -73,11 +78,11 @@ public class GoodsService {
 		if(goods!=null) {
 			structure.setMessage("deleted successfully");
 			structure.setStatus(HttpStatus.OK.value());
-			structure.setData(goods);
+			structure.setData(goodsDao.deleteById(id));
 			return new ResponseEntity<ResponseStructure<Goods>>(structure,HttpStatus.OK);	
 		}
 		else {
-			return null;
+			throw new GoodsIdNotFoundException(); 
 		}
 	}
 

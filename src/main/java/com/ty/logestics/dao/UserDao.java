@@ -46,7 +46,11 @@ public class UserDao {
 		}
 	}
 	public User getUserByEmail(String email) {
-		return repo.findByEmail(email);
+		User user=repo.findByEmail(email);
+		if(user!=null) {
+			return user;
+		}
+		return null;
 	}
 
 }

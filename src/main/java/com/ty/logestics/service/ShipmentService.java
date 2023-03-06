@@ -9,7 +9,10 @@ import com.ty.logestics.dao.GoodsDao;
 import com.ty.logestics.dao.ShipmentDao;
 import com.ty.logestics.dto.Goods;
 import com.ty.logestics.dto.Shipment;
-import com.ty.logestics.exception.CompanyIdNotFoundException;
+
+import com.ty.logestics.exception.GoodsIdNotFoundException;
+import com.ty.logestics.exception.ShipmentIdNotFoundException;
+
 import com.ty.logestics.util.ResponseStructure;
 
 @Service
@@ -37,7 +40,9 @@ public class ShipmentService {
 		}
 		
 		else
-			throw new CompanyIdNotFoundException("Id not Found");
+
+			throw new GoodsIdNotFoundException();
+
 	}
 
 	public ResponseEntity<ResponseStructure<Shipment>> updateShipment(int id, Shipment shipment) {
@@ -55,7 +60,8 @@ public class ShipmentService {
 			return new ResponseEntity<ResponseStructure<Shipment>>(structure, HttpStatus.OK);
 
 		} else
-			throw new CompanyIdNotFoundException();
+
+			throw new ShipmentIdNotFoundException();
 
 	}
 
@@ -69,7 +75,9 @@ public class ShipmentService {
 			responseStructure.setData(sdao.deleteShipment(id));
 			return new ResponseEntity<ResponseStructure<Shipment>>(responseStructure, HttpStatus.OK);
 		} else {
-			throw new CompanyIdNotFoundException("Id not Found");
+
+		throw new ShipmentIdNotFoundException();
+
 		}
 
 	}
@@ -84,7 +92,7 @@ public class ShipmentService {
 
 			return new ResponseEntity<ResponseStructure<Shipment>>(responseStructure, HttpStatus.FOUND);
 		} else {
-			throw new CompanyIdNotFoundException("Given Id Not Found");
+			throw new ShipmentIdNotFoundException();
 
 		}
 	}
