@@ -59,7 +59,6 @@ public class ShipmentService {
 			Goods goods=dbShipment.getGoods();
 			goods.setBranch(branch);
 			shipment.setGoods(goods);
-			shipment.setGoods(dbShipment.getGoods());
 			ResponseStructure<Shipment> structure = new ResponseStructure<Shipment>();
 
 			structure.setMessage("successfully updated");
