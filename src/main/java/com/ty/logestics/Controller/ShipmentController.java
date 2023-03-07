@@ -62,9 +62,9 @@ public class ShipmentController {
 
 	@PutMapping("/shipment")
 	public ResponseEntity<ResponseStructure<Shipment>> updateShipment(@RequestParam int id,
-			@RequestBody Shipment shipment) {
+			@RequestBody Shipment shipment,@RequestParam int bid) {
 
-		return service.updateShipment(id, shipment);
+		return service.updateShipment(id, shipment,bid);
 
 	}
 
