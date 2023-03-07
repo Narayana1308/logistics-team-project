@@ -5,8 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ty.logestics.dao.BranchDao;
 import com.ty.logestics.dao.GoodsDao;
 import com.ty.logestics.dao.ShipmentDao;
+import com.ty.logestics.dto.Branch;
 import com.ty.logestics.dto.Goods;
 import com.ty.logestics.dto.Shipment;
 
@@ -20,6 +22,8 @@ public class ShipmentService {
 
 	@Autowired
 	private GoodsDao dao;
+	@Autowired
+	private BranchDao branchDao;
 
 	@Autowired
 	private ShipmentDao sdao;
@@ -29,28 +33,32 @@ public class ShipmentService {
 		Goods goods = dao.getById(gid);
 		if (goods != null) {
 			shipment.setGoods(goods);
-		
-		ResponseStructure<Shipment> structure = new ResponseStructure<Shipment>();
 
-		structure.setMessage("successfully saved");
-		structure.setStatus(HttpStatus.CREATED.value());
-		structure.setData(sdao.saveShipment(gid, shipment));
+			ResponseStructure<Shipment> structure = new ResponseStructure<Shipment>();
 
-		return new ResponseEntity<ResponseStructure<Shipment>>(structure, HttpStatus.CREATED);
+			structure.setMessage("successfully saved");
+			structure.setStatus(HttpStatus.CREATED.value());
+			structure.setData(sdao.saveShipment(gid, shipment));
+
+			return new ResponseEntity<ResponseStructure<Shipment>>(structure, HttpStatus.CREATED);
 		}
-		
+
 		else
 
 			throw new GoodsIdNotFoundException();
 
 	}
 
-	public ResponseEntity<ResponseStructure<Shipment>> updateShipment(int id, Shipment shipment) {
+	public ResponseEntity<ResponseStructure<Shipment>> updateShipment(int id, Shipment shipment,int bid) {
 
 		Shipment dbShipment = sdao.getById(id);
+		Branch  branch=branchDao.getBranchById(bid);
+	
 
-		if (dbShipment != null) {
-			shipment.setGoods(dbShipment.getGoods());
+		if (dbShipment != null && branch!=null) {
+			Goods goods=dbShipment.getGoods();
+			goods.setBranch(branch);
+			shipment.setGoods(goods);
 			ResponseStructure<Shipment> structure = new ResponseStructure<Shipment>();
 
 			structure.setMessage("successfully updated");
@@ -76,7 +84,7 @@ public class ShipmentService {
 			return new ResponseEntity<ResponseStructure<Shipment>>(responseStructure, HttpStatus.OK);
 		} else {
 
-		throw new ShipmentIdNotFoundException();
+			throw new ShipmentIdNotFoundException();
 
 		}
 
