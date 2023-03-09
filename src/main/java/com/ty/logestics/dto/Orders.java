@@ -7,6 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -20,31 +25,28 @@ public class Orders {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@NotNull(message="ordertype  should not be null")
-	@NotBlank(message="ordertype should not be blank")
-	@Pattern(regexp = "[a-zA-z]+" ,message ="ordertype contains  characters only")
-	
+
+	@NotNull(message="order_type should not be null")
+	@NotBlank(message="order_type should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="order type should contain characters only")
 	private String oderType;
-	
-	@NotNull(message="address  should not be null")
-	@NotBlank(message="address should not be blank")
-	@Pattern(regexp = "[a-zA-z/.0-9]+" ,message ="address contains  characters and numbers only")
+	@NotNull(message="To_Address should not be null")
+	@NotBlank(message="To_Address should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="Address should contain only characters")
 	private String to_Address;
-	
-	@NotNull(message="address  should not be null")
-	@NotBlank(message="address should not be blank")
-	@Pattern(regexp = "[a-zA-z/.0-9]+" ,message ="address contains  characters and numbers only")
+	@NotNull(message="From_Address should not be null")
+	@NotBlank(message="From__Address should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="Address should contain only characters")
 	private String from_Address;
 	
-	@NotNull(message="charges  should not be null")
-	@NotBlank(message="charges should not be blank")
-	@Pattern(regexp = "[0-9/.]+" ,message ="charges contains  numbers only")
-	private String charges;
+	@Min(value=100,message="the minimum charges on a order is minimum 100 rupees")
+	private double charges;
 	
-	@NotNull(message="distance  should not be null")
-	@NotBlank(message="distance should not be blank")
-	@Pattern(regexp = "[0-9/.]+" ,message ="distance contains  numbers only")
-	private String totaldistance;
+	@Min(value=1,message="The minimum distance should be 1km")
+	@Max(value=500,message="The maximum distance should be 500km")
+	private double totaldistance;
+
+
 	@OneToMany
 	private List<Product> products;
 	
@@ -72,16 +74,16 @@ public class Orders {
 	public void setFrom_Address(String from_Address) {
 		this.from_Address = from_Address;
 	}
-	public String getCharges() {
+	public double getCharges() {
 		return charges;
 	}
-	public void setCharges(String charges) {
+	public void setCharges(double charges) {
 		this.charges = charges;
 	}
-	public String getTotaldistance() {
+	public double getTotaldistance() {
 		return totaldistance;
 	}
-	public void setTotaldistance(String totaldistance) {
+	public void setTotaldistance(double totaldistance) {
 		this.totaldistance = totaldistance;
 	}
 	public List<Product> getProducts() {
