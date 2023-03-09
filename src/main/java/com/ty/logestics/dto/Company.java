@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -23,11 +27,31 @@ public class Company {
             @Parameter(name = StringPreFixedIdSequenceGenerator.VALUE_PREFIXE_PARAMETER, value = "TYSS_"),
             @Parameter(name = StringPreFixedIdSequenceGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
 	private String id;
+	
+	@NotNull(message="name should not be null")
+	@NotBlank(message="name should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="name contains  characters only")
 	private String name;
+	
+	@NotNull(message="GST should not be null")
+	@NotBlank(message="GSt should not be blank")
 	private String gst;
+	
+	@NotNull(message="email should not be null")
+	@NotBlank(message="email should not be blank")
+	@Email(regexp = "[a-zA-Z0-9]+[@][A-Za-z]*[.]com" ,message="Enter the proper Email id")
 	private String email;
-	private long phone;
+	
+	@NotNull(message="phone should not be null")
+	@NotBlank(message="phone should not be blank")
+	@Pattern(regexp = "[6-9][0-9]{9}" ,message ="number contains 10 digits and starts with 6-9")
+	private String phone;
+	
+	@NotNull(message="CEO name should not be null")
+	@NotBlank(message="CEO should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="name contails  characters only")
 	private String ceo;
+	
 	public String getId() {
 		return id;
 	}
@@ -52,10 +76,10 @@ public class Company {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public long getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(long phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public String getCeo() {
