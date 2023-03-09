@@ -7,6 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import lombok.Data;
 
@@ -16,10 +21,25 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotNull(message="order_type should not be null")
+	@NotBlank(message="order_type should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="order type should contain characters only")
 	private String oderType;
+	@NotNull(message="To_Address should not be null")
+	@NotBlank(message="To_Address should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="Address should contain only characters")
 	private String to_Address;
+	@NotNull(message="From_Address should not be null")
+	@NotBlank(message="From__Address should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="Address should contain only characters")
 	private String from_Address;
+	
+	@Min(value=100,message="the minimum charges on a order is minimum 100 rupees")
 	private double charges;
+	
+	@Min(value=1,message="The minimum distance should be 1km")
+	@Max(value=500,message="The maximum distance should be 500km")
 	private double totaldistance;
 	@OneToMany
 	private List<Product> products;
