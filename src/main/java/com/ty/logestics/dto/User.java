@@ -46,7 +46,7 @@ public class User {
 	
 	@NotNull(message="phone should not be null")
 	@NotBlank(message="phone should not be blank")
-	@Pattern(regexp = "[6-9][0-9]{9}" ,message ="number contaims 10 digits and starts with 6-9")
+	@Pattern(regexp = "[6-9][0-9]{9}" ,message ="number contaims 10 digits a")
 	private String phone;
 	public String getId() {
 		return id;
