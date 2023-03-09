@@ -4,10 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+
 
 import com.ty.logestics.util.StringPreFixedIdSequenceGenerator;
 
@@ -22,11 +27,27 @@ public class User {
 			@Parameter(name=StringPreFixedIdSequenceGenerator.NUMBER_FORMAT_PARAMETER,value = "%05d")
 	})
 	private String id;
+	@NotNull(message="user name should not be null")
+	@NotBlank(message="name should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="name contails  characters only")
 	private String name;
+	@NotNull(message="email should not be null")
+	@NotBlank(message="email should not be blank")
+	@Email(regexp = "[a-zA-Z0-9][a-zA-Z0-9_.]*@gmail[.]com" ,message="Enter the proper Email id")
 	private String email;
+	@NotNull(message="password should not be null")
+	@NotBlank(message="password should not be blank")
+	@Pattern(regexp = "[a-zA-Z0-9]*[#&$]+",message="make password as strong ex: abc123&")
 	private String password;
+	@NotNull(message="role should not be null")
+	@NotBlank(message="role should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="role contails  characters only")
 	private String role;
-	private long phone;
+	
+	@NotNull(message="phone should not be null")
+	@NotBlank(message="phone should not be blank")
+	@Pattern(regexp = "[6-9][0-9]{9}" ,message ="number contaims 10 digits and starts with 6-9")
+	private String phone;
 	public String getId() {
 		return id;
 	}
@@ -57,10 +78,10 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public long getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(long phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	

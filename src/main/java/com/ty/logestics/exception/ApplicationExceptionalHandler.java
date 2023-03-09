@@ -2,10 +2,15 @@ package com.ty.logestics.exception;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.NoSuchElementException;
 import java.util.Set;
 
 import javax.management.ListenerNotFoundException;
+
+import java.util.Set;
+
+
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -118,15 +123,17 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
 	}
 	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<Object> handleConstraintEntityViolationException(ConstraintViolationException constraintViolationException){
-		Set<ConstraintViolation<?>> set=constraintViolationException.getConstraintViolations();
-		List<String> list=new ArrayList<>();
-		for(ConstraintViolation<?> constraintViolation:set) {
-			String name=constraintViolation.getMessage();
+	public ResponseEntity<Object> constrainVoilationException(ConstraintViolationException con) {
+		List<String> list = new ArrayList<>();
+		Set<ConstraintViolation<?>> set = con.getConstraintViolations();
+		for (ConstraintViolation<?> violation : set) {
+
+			String name = violation.getMessage();
+		
 			list.add(name);
-			
 		}
-		return new ResponseEntity<Object>(list,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>(list, HttpStatus.BAD_REQUEST);
+
 	}
 
 
