@@ -21,7 +21,7 @@ public class Branch {
 	
 	@NotNull(message="branch should not be null")
 	@NotBlank(message="branch should not be blank")
-	@Pattern(regexp = "[a-zA-z]*" ,message ="branch name contails only characters")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="branch name contain only characters")
 	private String branch_name;
 	
 	@NotNull(message="email should not be null")
