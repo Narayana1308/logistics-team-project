@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import lombok.Data;
 
@@ -14,9 +17,18 @@ public class Shipment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@NotNull(message="address should not be null")
+	@NotBlank(message="address should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="address contails  characters only")
 	private String address;
+	@NotNull(message="manager name should not be null")
+	@NotBlank(message="manager name should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message =" manager name contails  characters only")
 	private String manager_name;
-	private long phone;
+	@NotNull(message="phone should not be null")
+	@NotBlank(message="phone should not be blank")
+	@Pattern(regexp = "[6-9][0-9]{9}" ,message ="number contaims 10 digits and starts with 6-9")
+	private String phone;
 	
 
 	@ManyToOne
@@ -53,12 +65,12 @@ public class Shipment {
 	}
 
 
-	public long getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
 
-	public void setPhone(long phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
