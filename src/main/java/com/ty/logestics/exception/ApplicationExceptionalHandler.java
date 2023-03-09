@@ -1,8 +1,13 @@
 package com.ty.logestics.exception;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import javax.management.ListenerNotFoundException;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -112,5 +117,17 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 		structure.setData("branches list not found");
 		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
 	}
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<Object> handleConstraintEntityViolationException(ConstraintViolationException constraintViolationException){
+		Set<ConstraintViolation<?>> set=constraintViolationException.getConstraintViolations();
+		List<String> list=new ArrayList<>();
+		for(ConstraintViolation<?> constraintViolation:set) {
+			String name=constraintViolation.getMessage();
+			list.add(name);
+			
+		}
+		return new ResponseEntity<Object>(list,HttpStatus.BAD_REQUEST);
+	}
+
 
 }
