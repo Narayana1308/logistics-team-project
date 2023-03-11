@@ -89,5 +89,26 @@ public class OrderService {
 			throw new OrderIdNotFoundException();
 		}
 	}
+	public ResponseEntity<ResponseStructure<Orders>> addProduct(int pid,int oid){
+		Orders orders=orderDao.getOrderById(oid);
+		Product product=productDao.getProductById(pid);
+		ResponseStructure<Orders> structure=new ResponseStructure<>();
+		if(orders!=null & product!=null) {
+			orders.setId(oid);
+			
+			List<Product> list=orders.getProducts();
+			list.add(product);
+			orders.setProducts(list);
+			
+			structure.setMessage("added successfully ");
+			structure.setStatus(HttpStatus.OK.value());
+			structure.setData(orderDao.saveOrder(orders));
+			
+			return new ResponseEntity<ResponseStructure<Orders>> (structure,HttpStatus.OK);
+			
+		}else {
+			throw new OrderIdNotFoundException();
+		}
+	}
 
 }

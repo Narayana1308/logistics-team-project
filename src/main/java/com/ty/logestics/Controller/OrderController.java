@@ -55,4 +55,11 @@ public class OrderController {
 	public ResponseEntity<ResponseStructure<Orders>> deleteOrder(@RequestParam int id ){
 		return service.deleteOrder(id);
 	}
+	@ApiOperation(value = "add product ", notes = "Api is used  to add product in an order ")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "successfully added"),
+			@ApiResponse(code = 404, message = "not found") })
+	@PutMapping("/addproduct")
+	public ResponseEntity<ResponseStructure<Orders>> addProduct(@RequestParam int oid,@RequestParam int pid){
+		return service.addProduct(pid, oid);
+	}
 }
