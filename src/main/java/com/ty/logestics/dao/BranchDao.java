@@ -72,5 +72,15 @@ public class BranchDao {
 		}
 
 	}
+	
+	public List<Branch> listOfBranch(String id){
+		List<Branch> branchs=branchRepo.listOfBranch(id);
+		if(branchs!=null) {
+			return branchs;
+		}else {
+		return null;
+		}
+		
+	}
 
 }

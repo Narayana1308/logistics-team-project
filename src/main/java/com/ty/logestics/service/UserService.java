@@ -12,15 +12,19 @@ import com.ty.logestics.exception.InvalidPasswordException;
 
 import com.ty.logestics.exception.UserEmailNotFoundException;
 import com.ty.logestics.exception.UserIdNotFoundException;
+import com.ty.logestics.util.Encrypt;
 import com.ty.logestics.util.ResponseStructure;
 
 @Service
 public class UserService {
 	@Autowired
 	private UserDao dao;
+	@Autowired
+	private Encrypt encrypt;
 
 	public ResponseEntity<ResponseStructure<User>> save(User user) {
 		ResponseStructure<User> structure = new ResponseStructure<>();
+	    user.setPassword(encrypt.encrypt(user.getPassword()));
 		structure.setMessage("saved");
 		structure.setStatus(HttpStatus.CREATED.value());
 		structure.setData(dao.saveUser(user));
@@ -60,8 +64,10 @@ public class UserService {
 
 	public ResponseEntity<ResponseStructure<User>> getUserById(String id) {
 		User user = dao.getUserById(id);
+		
 		ResponseStructure<User> structure = new ResponseStructure<>();
 		if (user != null) {
+			user.setPassword(encrypt.decrypt(user.getPassword()));
 			structure.setMessage("Successfully found");
 			structure.setStatus(HttpStatus.FOUND.value());
 			structure.setData(user);

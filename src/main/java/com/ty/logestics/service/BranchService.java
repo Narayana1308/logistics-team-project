@@ -134,9 +134,16 @@ public class BranchService {
 		} else {
 			throw new BranchManagerNotFoundException();
 		}
-
-
+	}
 	
+	public ResponseEntity<ResponseStructure<List<Branch>>> listOfBranches(String id){
+		ResponseStructure<List<Branch>> structure=new ResponseStructure<>();
+		List<Branch> list=branchDao.listOfBranch(id);
+		structure.setMessage("getting");
+		structure.setStatus(HttpStatus.OK.value());
+		structure.setData(list);
+		return new ResponseEntity<ResponseStructure<List<Branch>>>(structure,HttpStatus.OK);
+		
 	}
 }
 

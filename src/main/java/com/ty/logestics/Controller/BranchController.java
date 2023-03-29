@@ -76,5 +76,11 @@ public class BranchController {
 	public ResponseEntity<ResponseStructure<Branch>> getByManager(@RequestParam String managerName) {
 		return service.getBranchByManager(managerName);
 	}
+	
+	
+	@GetMapping("/listofbranches")
+	public ResponseEntity<ResponseStructure<List<Branch>>> listOfBranch(@RequestParam String id){
+		return service.listOfBranches(id);
+	}
 
 }
