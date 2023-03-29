@@ -12,5 +12,6 @@ public interface GoodsRepo extends JpaRepository<Goods	, Integer>{
 	
 	@Query("select g from Goods g where g.branch.id=?1")
 	public List<Goods> listOfGoods(int id);
+	
 
 }

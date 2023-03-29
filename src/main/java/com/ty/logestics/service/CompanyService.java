@@ -85,6 +85,7 @@ public class CompanyService {
 				}
 			}
 			branchDao.deleteBranch(branch.getId());
+			
 		}
 		Company company = companyDao.deleteCompany(id);
 		if (company != null) {

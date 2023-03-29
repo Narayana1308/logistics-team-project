@@ -49,6 +49,7 @@ public class Goods {
 	private Branch branch;
 	@OneToOne
 	private Orders order;
+	
 	public int getId() {
 		return id;
 	}
