@@ -11,6 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import lombok.Data;
 
@@ -20,10 +25,27 @@ public class Goods {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@NotNull(message="goods name should not be null")
+	@NotBlank(message="goods name should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="goods name should contain only characters")
 	private String name;
+	
+	@NotNull(message="Description should not be null")
+	@NotBlank(message="Description should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="Description should contain only characters")
 	private String description;
+	
+	@NotNull(message="Manufacture name should not be null")
+	@NotBlank(message="Manufacture name should not be blank")
+	@Pattern(regexp = "[a-zA-z]*" ,message ="Manufacture name should contain only characters")
 	private String manufacture;
+	
+	@Min(value=100,message="Minimum cost of the goods should be 100 rupees")
 	private double cost;
+	
+	@NotNull(message="email should not be null")
+	@NotBlank(message="email should not be blank")
+	@Email(regexp = "[a-zA-Z0-9][a-zA-Z0-9_.]*@gmail[.]com" ,message="Enter the proper Email id")
 	private String email;
 	
 	@ManyToOne
@@ -34,8 +56,6 @@ public class Goods {
 	private Orders order;
 	
 
-	
-	
 	public int getId() {
 		return id;
 	}
