@@ -1,5 +1,7 @@
 package com.ty.logestics.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -48,6 +50,16 @@ public class GoodsDao {
 			return repo.findById(id).get();
 		}
 		return null;
+	}
+
+	public List<Goods> listOfGoods(int id) {
+		// TODO Auto-generated method stub
+		List<Goods> list=repo.listOfGoods(id);
+		if(list!=null) {
+		return list;
+		}else {
+			return null;
+		}
 	}
 
 }
