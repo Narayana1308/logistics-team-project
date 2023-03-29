@@ -160,11 +160,20 @@ public class BranchService {
 	
 	public ResponseEntity<ResponseStructure<List<Branch>>> listOfBranches(String id){
 		ResponseStructure<List<Branch>> structure=new ResponseStructure<>();
+		Company company=companyDao.getCompanyById(id);
+		if(company!=null) {
 		List<Branch> list=branchDao.listOfBranch(id);
+		if(list!=null) {
 		structure.setMessage("getting");
 		structure.setStatus(HttpStatus.OK.value());
 		structure.setData(list);
 		return new ResponseEntity<ResponseStructure<List<Branch>>>(structure,HttpStatus.OK);
+		}else {
+			throw new ListEmptyException();
+		}
+		}else {
+			throw new CompanyIdNotFoundException();
+		}
 		
 	}
 }

@@ -1,6 +1,5 @@
 package com.ty.logestics.service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,95 +17,101 @@ import com.ty.logestics.util.ResponseStructure;
 
 @Service
 public class OrderService {
-	
+
 	@Autowired
 	private OrderDao orderDao;
-	
+
 	@Autowired
 	private ProductDao productDao;
-	
-	public ResponseEntity<ResponseStructure<Orders>> saveOrder(int pid,Orders order){
-		ResponseStructure<Orders> structure=new ResponseStructure<>();
-		List<Product> products=new ArrayList<>();
-		Product product=productDao.getProductById(pid);
-		products.add(product);
-		if(products!=null) {
-			order.setProducts(products);
-			Orders order2=orderDao.saveOrder(order);
-			
-			structure.setMessage("successfully saved Order");
-			structure.setStatus(HttpStatus.CREATED.value());
-			structure.setData(order2);
-			
-			return new ResponseEntity<ResponseStructure<Orders>> (structure,HttpStatus.CREATED);
-			
+
+	public ResponseEntity<ResponseStructure<Orders>> saveOrder(int pid, Orders order) {
+		ResponseStructure<Orders> structure = new ResponseStructure<>();
+		List<Product> products = new ArrayList<>();
+		Product product = productDao.getProductById(pid);
+		if (product != null) {
+			products.add(product);
+			if (products != null) {
+				order.setProducts(products);
+				Orders order2 = orderDao.saveOrder(order);
+
+				structure.setMessage("successfully saved Order");
+				structure.setStatus(HttpStatus.CREATED.value());
+				structure.setData(order2);
+
+				return new ResponseEntity<ResponseStructure<Orders>>(structure, HttpStatus.CREATED);
+
+			} else {
+				throw new OrderIdNotFoundException();
+			}
 		}else {
 			throw new OrderIdNotFoundException();
 		}
 	}
-	
-	public ResponseEntity<ResponseStructure<Orders>> updateOrder(int oid,Orders order){
-	
-		Orders daoOrder=orderDao.getOrderById(oid);
-		if(daoOrder!=null) {
-		//	order.setId(daoOrder.getId());
+
+	public ResponseEntity<ResponseStructure<Orders>> updateOrder(int oid, Orders order) {
+
+		Orders daoOrder = orderDao.getOrderById(oid);
+		if (daoOrder != null) {
+			// order.setId(daoOrder.getId());
 			order.setProducts(daoOrder.getProducts());
-			ResponseStructure<Orders> structure=new ResponseStructure<>();
+			ResponseStructure<Orders> structure = new ResponseStructure<>();
 			structure.setMessage("successfully updated Order");
 			structure.setStatus(HttpStatus.OK.value());
 			structure.setData(orderDao.updateOrder(oid, order));
-			
-			return new ResponseEntity<ResponseStructure<Orders>> (structure,HttpStatus.OK);
-			
-		}else {
+
+			return new ResponseEntity<ResponseStructure<Orders>>(structure, HttpStatus.OK);
+
+		} else {
 			throw new OrderIdNotFoundException();
 		}
 	}
-	
-	public ResponseEntity<ResponseStructure<Orders>> getOrder(int oid){
-		Orders order=orderDao.getOrderById(oid);
-		if(order!=null) {
-			ResponseStructure<Orders> structure=new ResponseStructure<>();
+
+	public ResponseEntity<ResponseStructure<Orders>> getOrder(int oid) {
+		Orders order = orderDao.getOrderById(oid);
+		if (order != null) {
+			ResponseStructure<Orders> structure = new ResponseStructure<>();
 			structure.setMessage("successfully fetched Order");
 			structure.setStatus(HttpStatus.FOUND.value());
 			structure.setData(order);
-			return new ResponseEntity<ResponseStructure<Orders>> (structure,HttpStatus.FOUND);
-		}else {
+			return new ResponseEntity<ResponseStructure<Orders>>(structure, HttpStatus.FOUND);
+		} else {
 			throw new OrderIdNotFoundException();
 		}
 	}
-	public ResponseEntity<ResponseStructure<Orders>> deleteOrder(int oid){
-		Orders order=orderDao.deleteOrder(oid);
-		if(order!=null) {
-			ResponseStructure<Orders> structure=new ResponseStructure<>();
+
+	public ResponseEntity<ResponseStructure<Orders>> deleteOrder(int oid) {
+		Orders order = orderDao.deleteOrder(oid);
+		if (order != null) {
+			ResponseStructure<Orders> structure = new ResponseStructure<>();
 			structure.setMessage("successfully deleted Order");
 			structure.setStatus(HttpStatus.OK.value());
 			structure.setData(order);
-			
-			return new ResponseEntity<ResponseStructure<Orders>> (structure,HttpStatus.OK);
-			
-		}else {
+
+			return new ResponseEntity<ResponseStructure<Orders>>(structure, HttpStatus.OK);
+
+		} else {
 			throw new OrderIdNotFoundException();
 		}
 	}
-	public ResponseEntity<ResponseStructure<Orders>> addProduct(int pid,int oid){
-		Orders orders=orderDao.getOrderById(oid);
-		Product product=productDao.getProductById(pid);
-		ResponseStructure<Orders> structure=new ResponseStructure<>();
-		if(orders!=null & product!=null) {
+
+	public ResponseEntity<ResponseStructure<Orders>> addProduct(int pid, int oid) {
+		Orders orders = orderDao.getOrderById(oid);
+		Product product = productDao.getProductById(pid);
+		ResponseStructure<Orders> structure = new ResponseStructure<>();
+		if (orders != null & product != null) {
 			orders.setId(oid);
-			
-			List<Product> list=orders.getProducts();
+
+			List<Product> list = orders.getProducts();
 			list.add(product);
 			orders.setProducts(list);
-			
+
 			structure.setMessage("added successfully ");
 			structure.setStatus(HttpStatus.OK.value());
 			structure.setData(orderDao.saveOrder(orders));
-			
-			return new ResponseEntity<ResponseStructure<Orders>> (structure,HttpStatus.OK);
-			
-		}else {
+
+			return new ResponseEntity<ResponseStructure<Orders>>(structure, HttpStatus.OK);
+
+		} else {
 			throw new OrderIdNotFoundException();
 		}
 	}

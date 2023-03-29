@@ -15,6 +15,7 @@ import com.ty.logestics.dto.Orders;
 import com.ty.logestics.dto.User;
 import com.ty.logestics.exception.GoodsIdNotFoundException;
 import com.ty.logestics.exception.InvalidIdException;
+import com.ty.logestics.exception.OrderAlreadyPlacedException;
 import com.ty.logestics.util.ResponseStructure;
 
 @Service
@@ -32,19 +33,28 @@ public class GoodsService {
 		Orders order=orderDao.getOrderById(oid);
 		Branch branch=branchDao.getBranchById(bid);
 		User user=userDao.getUserById(uid);
+		
+		
 		ResponseStructure<Goods> structure=new ResponseStructure<>();
-		if(order!=null && branch !=null && user!=null) {
-			goods.setBranch(branch);
-			goods.setOrder(order);
-			goods.setUser(user);
-			structure.setMessage("successfully saved");
-			structure.setStatus(HttpStatus.CREATED.value());
-			structure.setData(goodsDao.saveGoods(goods));
-			return new ResponseEntity<ResponseStructure<Goods>>(structure,HttpStatus.CREATED);
+		Goods goods2=goodsDao.getGoodsByOrderId(oid);
+		if(goods2!=null) {
+			throw new OrderAlreadyPlacedException();
+		
+		}else {
+			if( branch !=null && user!=null) {
+				goods.setBranch(branch);
+				goods.setOrder(order);
+				goods.setUser(user);
+				structure.setMessage("successfully saved");
+				structure.setStatus(HttpStatus.CREATED.value());
+				structure.setData(goodsDao.saveGoods(goods));
+				return new ResponseEntity<ResponseStructure<Goods>>(structure,HttpStatus.CREATED);
+			}
+			else {
+			   throw new InvalidIdException();
+			}
+			
 		}
-		else {
-		   throw new InvalidIdException();
-		}				
 	}
 	public ResponseEntity<ResponseStructure<Goods>> updateGoods(int gid,Goods goods){
 		Goods goods2=goodsDao.updateGoods(gid, goods);

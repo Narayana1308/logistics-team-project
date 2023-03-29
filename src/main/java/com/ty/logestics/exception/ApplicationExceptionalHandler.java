@@ -131,6 +131,24 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 		return new ResponseEntity<Object>(list, HttpStatus.BAD_REQUEST);
 
 	}
+	@ExceptionHandler(OrderIdNotFoundException.class)
+	public ResponseEntity<ResponseStructure<String>> orderNotFound(OrderIdNotFoundException ex) {
+		ResponseStructure<String> structure = new ResponseStructure<String>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("Order id is not found");
+		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+
+	}
+	@ExceptionHandler(OrderAlreadyPlacedException.class)
+	public ResponseEntity<ResponseStructure<String>> orderAlreadyPlaced(OrderAlreadyPlacedException ex) {
+		ResponseStructure<String> structure = new ResponseStructure<String>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("Order is already placed ");
+		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+
+	}
 
 
 }

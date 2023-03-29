@@ -29,7 +29,6 @@ public class Goods {
 	@ManyToOne
 	private  User user;
 	@ManyToOne
-	@JoinColumn
 	private Branch branch;
 	@OneToOne
 	private Orders order;
