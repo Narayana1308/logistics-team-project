@@ -1,5 +1,7 @@
 package com.ty.logestics.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -68,4 +70,15 @@ public class ShipmentDao {
 			return null;
 
 	}
+
+	public List<Shipment> listShipment(int id) {
+		List<Shipment> list = repo.listOfShipment(id);
+		if (list != null) {
+			return list;
+		} else {
+			return null;
+		}
+	}
+
+	
 }
