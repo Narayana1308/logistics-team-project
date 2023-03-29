@@ -1,5 +1,7 @@
 package com.ty.logestics.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,13 +10,16 @@ import org.springframework.stereotype.Service;
 import com.ty.logestics.dao.BranchDao;
 import com.ty.logestics.dao.GoodsDao;
 import com.ty.logestics.dao.OrderDao;
+import com.ty.logestics.dao.ShipmentDao;
 import com.ty.logestics.dao.UserDao;
 import com.ty.logestics.dto.Branch;
 import com.ty.logestics.dto.Goods;
 import com.ty.logestics.dto.Orders;
+import com.ty.logestics.dto.Shipment;
 import com.ty.logestics.dto.User;
 import com.ty.logestics.exception.GoodsIdNotFoundException;
 import com.ty.logestics.exception.InvalidIdException;
+import com.ty.logestics.exception.ShipmentIdNotFoundException;
 import com.ty.logestics.util.ResponseStructure;
 
 @Service
@@ -27,63 +32,73 @@ public class GoodsService {
 	private BranchDao branchDao;
 	@Autowired
 	private GoodsDao goodsDao;
-	
-	public ResponseEntity<ResponseStructure<Goods>> saveGoods(int oid,String uid,int bid,Goods goods){
-		Orders order=orderDao.getOrderById(oid);
-		Branch branch=branchDao.getBranchById(bid);
-		User user=userDao.getUserById(uid);
-		ResponseStructure<Goods> structure=new ResponseStructure<>();
-		if(order!=null && branch !=null && user!=null) {
+	@Autowired
+	private ShipmentDao shipmentDao;
+
+	public ResponseEntity<ResponseStructure<Goods>> saveGoods(int oid, String uid, int bid, Goods goods) {
+		Orders order = orderDao.getOrderById(oid);
+		Branch branch = branchDao.getBranchById(bid);
+		User user = userDao.getUserById(uid);
+		ResponseStructure<Goods> structure = new ResponseStructure<>();
+		if (order != null && branch != null && user != null) {
 			goods.setBranch(branch);
 			goods.setOrder(order);
 			goods.setUser(user);
 			structure.setMessage("successfully saved");
 			structure.setStatus(HttpStatus.CREATED.value());
 			structure.setData(goodsDao.saveGoods(goods));
-			return new ResponseEntity<ResponseStructure<Goods>>(structure,HttpStatus.CREATED);
+			return new ResponseEntity<ResponseStructure<Goods>>(structure, HttpStatus.CREATED);
+		} else {
+			throw new InvalidIdException();
 		}
-		else {
-		   throw new InvalidIdException();
-		}				
 	}
-	public ResponseEntity<ResponseStructure<Goods>> updateGoods(int gid,Goods goods){
-		Goods goods2=goodsDao.updateGoods(gid, goods);
-		ResponseStructure<Goods> structure=new ResponseStructure<>();
-		if(goods2!=null) {
+
+	public ResponseEntity<ResponseStructure<Goods>> updateGoods(int gid, Goods goods) {
+		Goods goods2 = goodsDao.updateGoods(gid, goods);
+		ResponseStructure<Goods> structure = new ResponseStructure<>();
+		if (goods2 != null) {
 			structure.setMessage("updated successfully");
 			structure.setStatus(HttpStatus.OK.value());
 			structure.setData(goods2);
-			return new ResponseEntity<ResponseStructure<Goods>>(structure,HttpStatus.OK);
-		}
-		else {
+			return new ResponseEntity<ResponseStructure<Goods>>(structure, HttpStatus.OK);
+		} else {
 			throw new GoodsIdNotFoundException();
 		}
 	}
-	public ResponseEntity<ResponseStructure<Goods>> getGoodsById(int gid){
-		Goods goods2=goodsDao.getById(gid);
-		ResponseStructure<Goods> structure=new ResponseStructure<>();
-		if(goods2!=null) {
+
+	public ResponseEntity<ResponseStructure<Goods>> getGoodsById(int gid) {
+		Goods goods2 = goodsDao.getById(gid);
+		ResponseStructure<Goods> structure = new ResponseStructure<>();
+		if (goods2 != null) {
 			structure.setMessage("successfully found");
 			structure.setStatus(HttpStatus.FOUND.value());
 			structure.setData(goods2);
-			return new ResponseEntity<ResponseStructure<Goods>>(structure,HttpStatus.FOUND);
-		}
-		else {
-			throw new GoodsIdNotFoundException(); 
+			return new ResponseEntity<ResponseStructure<Goods>>(structure, HttpStatus.FOUND);
+		} else {
+			throw new GoodsIdNotFoundException();
 		}
 	}
-	public ResponseEntity<ResponseStructure<Goods>> deleteGoodsById(int id){
-		Goods goods=goodsDao.getById(id);
-		ResponseStructure<Goods> structure=new ResponseStructure<>();
-		if(goods!=null) {
-			structure.setMessage("deleted successfully");
+
+	public ResponseEntity<ResponseStructure<Goods>> deleteGoods(int id) {
+		List<Shipment> ship = shipmentDao.listShipment(id);
+		if (ship != null) {
+			for (Shipment shipment : ship) {
+				shipmentDao.deleteShipment(shipment.getId());
+			}
+		}
+		Goods goods = goodsDao.deleteById(id);
+		ResponseStructure<Goods> structure = new ResponseStructure<>();
+		if (goods != null) {
+			structure.setMessage("Deleted successfully");
 			structure.setStatus(HttpStatus.OK.value());
-			structure.setData(goodsDao.deleteById(id));
-			return new ResponseEntity<ResponseStructure<Goods>>(structure,HttpStatus.OK);	
+			structure.setData(goods);
+			return new ResponseEntity<ResponseStructure<Goods>>(structure, HttpStatus.OK);
+		} else {
+
+			throw new GoodsIdNotFoundException();
+
 		}
-		else {
-			throw new GoodsIdNotFoundException(); 
-		}
+
 	}
 
 }

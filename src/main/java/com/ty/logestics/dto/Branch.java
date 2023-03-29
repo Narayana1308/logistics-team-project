@@ -34,9 +34,9 @@ public class Branch {
 	@Email(regexp = "[a-zA-Z0-9][a-zA-Z0-9_.]*@gmail[.]com" ,message="Enter the proper Email id")
 	private String email;
 	
-	@NotNull(message="password should not be null")
-	@NotBlank(message="password should not be blank")
-	@Pattern(regexp = "[a-zA-Z0-9]*[#&$]+",message="make password as strong ex: abc123&")
+//	@NotNull(message="password should not be null")
+//	@NotBlank(message="password should not be blank")
+//	@Pattern(regexp = "[a-zA-Z0-9]*[#&$]+",message="make password as strong ex: abc123&")
 	private String password;
 	
 	@NotNull(message="phone should not be null")

@@ -31,10 +31,10 @@ public class ShipmentService {
 
 	@Autowired
 	private ShipmentDao shipmentDao;
-
+	
 	@Autowired
 	private GoodsDao goodsDao;
-
+	
 	@Autowired
 	private CompanyDao companyDao;
 
@@ -59,13 +59,14 @@ public class ShipmentService {
 
 	}
 
-	public ResponseEntity<ResponseStructure<Shipment>> updateShipment(int id, Shipment shipment, int bid) {
+	public ResponseEntity<ResponseStructure<Shipment>> updateShipment(int id, Shipment shipment,int bid) {
 
 		Shipment dbShipment = shipmentDao.getById(id);
-		Branch branch = branchDao.getBranchById(bid);
+		Branch  branch=branchDao.getBranchById(bid);
+	
 
-		if (dbShipment != null && branch != null) {
-			Goods goods = dbShipment.getGoods();
+		if (dbShipment != null && branch!=null) {
+			Goods goods=dbShipment.getGoods();
 			goods.setBranch(branch);
 			shipment.setGoods(goods);
 			ResponseStructure<Shipment> structure = new ResponseStructure<Shipment>();
@@ -83,19 +84,14 @@ public class ShipmentService {
 	}
 
 	public ResponseEntity<ResponseStructure<Shipment>> deleteShipment(int id) {
-		List<Shipment> ship = shipmentDao.listShipment(id);
-		if (ship != null) {
-			for (Shipment shipment : ship) {
-				shipmentDao.deleteShipment(shipment.getId());
-			}
-		}
-		Shipment shipment = shipmentDao.deleteShipment(id);
-		ResponseStructure<Shipment> structure = new ResponseStructure<>();
+		Shipment shipment = shipmentDao.getById(id);
+
 		if (shipment != null) {
-			structure.setMessage("Deleted successfully");
-			structure.setStatus(HttpStatus.OK.value());
-			structure.setData(shipment);
-			return new ResponseEntity<ResponseStructure<Shipment>>(structure, HttpStatus.OK);
+			ResponseStructure<Shipment> responseStructure = new ResponseStructure<Shipment>();
+			responseStructure.setMessage("successfully deleted");
+			responseStructure.setStatus(HttpStatus.OK.value());
+			responseStructure.setData(shipmentDao.deleteShipment(id));
+			return new ResponseEntity<ResponseStructure<Shipment>>(responseStructure, HttpStatus.OK);
 		} else {
 
 			throw new ShipmentIdNotFoundException();
@@ -103,8 +99,7 @@ public class ShipmentService {
 		}
 
 	}
-
-	public ResponseEntity<ResponseStructure<Shipment>> getShipment(int id) {
+			public ResponseEntity<ResponseStructure<Shipment>> getShipment(int id) {
 		Shipment shipment = shipmentDao.getById(id);
 		if (shipment != null) {
 			ResponseStructure<Shipment> responseStructure = new ResponseStructure<Shipment>();
