@@ -1,9 +1,13 @@
 package com.ty.logestics.dto;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,6 +23,7 @@ import com.ty.logestics.util.StringPreFixedIdSequenceGenerator;
 @Data
 public class Company {
  
+
 	@Id
 	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comp_seq")
     @GenericGenerator(name = "comp_seq", strategy = "com.ty.logestics.util.StringPreFixedIdSequenceGenerator",
@@ -51,6 +56,8 @@ public class Company {
 	@NotBlank(message="CEO should not be blank")
 	@Pattern(regexp = "[a-zA-z]*" ,message ="name contails  characters only")
 	private String ceo;
+	
+
 	
 	public String getId() {
 		return id;
@@ -88,6 +95,7 @@ public class Company {
 	public void setCeo(String ceo) {
 		this.ceo = ceo;
 	}
+	
 	
 	
 	

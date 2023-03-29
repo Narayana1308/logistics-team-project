@@ -9,10 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.ty.logestics.dao.BranchDao;
 import com.ty.logestics.dao.CompanyDao;
+import com.ty.logestics.dao.GoodsDao;
+import com.ty.logestics.dao.ShipmentDao;
 import com.ty.logestics.dto.Branch;
 import com.ty.logestics.exception.CompanyIdNotFoundException;
 
 import com.ty.logestics.dto.Company;
+import com.ty.logestics.dto.Goods;
+import com.ty.logestics.dto.Shipment;
 import com.ty.logestics.exception.BranchIdNotFoundException;
 import com.ty.logestics.exception.BranchManagerNotFoundException;
 
@@ -26,6 +30,10 @@ public class BranchService {
 	private BranchDao branchDao;
 	@Autowired
 	private CompanyDao companyDao;
+	@Autowired
+	private GoodsDao goodsDao;
+	@Autowired
+	private ShipmentDao shipmentDao;
 
 	public ResponseEntity<ResponseStructure<Branch>> saveBranch(Branch branch, String cid) {
 		ResponseStructure<Branch> structure = new ResponseStructure<>();
@@ -45,6 +53,20 @@ public class BranchService {
 	}
 
 	public ResponseEntity<ResponseStructure<Branch>> deleteBranch(int id) {
+		
+		List<Goods> goods = goodsDao.listOfGoods(id);
+		if (goods != null) {
+			for (Goods goods2 : goods) {
+				List<Shipment> ship = shipmentDao.listShipment(goods2.getId());
+				if (ship != null) {
+					for (Shipment shipment : ship) {
+						shipmentDao.deleteShipment(shipment.getId());
+					}
+				}
+				goodsDao.deleteById(goods2.getId());
+			}
+		}
+		
 		Branch branch = branchDao.deleteBranch(id);
 		ResponseStructure<Branch> structure = new ResponseStructure<>();
 		if (branch != null) {
