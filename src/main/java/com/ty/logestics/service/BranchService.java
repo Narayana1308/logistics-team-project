@@ -53,7 +53,7 @@ public class BranchService {
 	}
 
 	public ResponseEntity<ResponseStructure<Branch>> deleteBranch(int id) {
-		
+
 		List<Goods> goods = goodsDao.listOfGoods(id);
 		if (goods != null) {
 			for (Goods goods2 : goods) {
@@ -66,7 +66,7 @@ public class BranchService {
 				goodsDao.deleteById(goods2.getId());
 			}
 		}
-		
+
 		Branch branch = branchDao.deleteBranch(id);
 		ResponseStructure<Branch> structure = new ResponseStructure<>();
 		if (branch != null) {
@@ -139,7 +139,6 @@ public class BranchService {
 		} else {
 			throw new ListEmptyException();
 		}
-		
 
 	}
 
@@ -152,30 +151,27 @@ public class BranchService {
 			structure.setData(branch2);
 			return new ResponseEntity<ResponseStructure<Branch>>(structure, HttpStatus.OK);
 
-
 		} else {
 			throw new BranchManagerNotFoundException();
 		}
 	}
-	
-	public ResponseEntity<ResponseStructure<List<Branch>>> listOfBranches(String id){
-		ResponseStructure<List<Branch>> structure=new ResponseStructure<>();
-		Company company=companyDao.getCompanyById(id);
-		if(company!=null) {
-		List<Branch> list=branchDao.listOfBranch(id);
-		if(list!=null) {
-		structure.setMessage("getting");
-		structure.setStatus(HttpStatus.OK.value());
-		structure.setData(list);
-		return new ResponseEntity<ResponseStructure<List<Branch>>>(structure,HttpStatus.OK);
-		}else {
-			throw new ListEmptyException();
-		}
-		}else {
+
+	public ResponseEntity<ResponseStructure<List<Branch>>> listOfBranches(String id) {
+		ResponseStructure<List<Branch>> structure = new ResponseStructure<>();
+		Company company = companyDao.getCompanyById(id);
+		if (company != null) {
+			List<Branch> list = branchDao.listOfBranch(id);
+			if (list != null) {
+				structure.setMessage("getting");
+				structure.setStatus(HttpStatus.OK.value());
+				structure.setData(list);
+				return new ResponseEntity<ResponseStructure<List<Branch>>>(structure, HttpStatus.OK);
+			} else {
+				throw new ListEmptyException();
+			}
+		} else {
 			throw new CompanyIdNotFoundException();
 		}
-		
+
 	}
 }
-
-

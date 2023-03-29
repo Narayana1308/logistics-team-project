@@ -47,7 +47,7 @@ public class GoodsController {
 			@ApiResponse(code = 404, message = "not found") })
 	@DeleteMapping("/deletegoods")
 	public ResponseEntity<ResponseStructure<Goods>> delete(@RequestParam int gid){
-		return goodsService.deleteGoods(gid);
+		return goodsService.deleteGoodsById(gid);
 	}
 	@ApiOperation(value = "get the goods ", notes = "Api is used get the goods based on the id ")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "successfully found"),
