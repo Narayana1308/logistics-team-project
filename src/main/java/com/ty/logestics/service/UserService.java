@@ -35,6 +35,7 @@ public class UserService {
 		User user2 = dao.getUserById(u_id);
 		ResponseStructure<User> structure = new ResponseStructure<>();
 		if (user2 != null) {
+		    user.setPassword(encrypt.encrypt(user.getPassword()));
 			structure.setMessage("updated succesfully");
 			structure.setStatus(HttpStatus.OK.value());
 			structure.setData(dao.updateUser(u_id, user));
@@ -47,8 +48,10 @@ public class UserService {
 
 	public ResponseEntity<ResponseStructure<User>> loginUser(String email, String password)  {
 		User user = dao.getUserByEmail(email);
+		
 		ResponseStructure<User> structure = new ResponseStructure<>();
 		if (user != null) {
+		user.setPassword(encrypt.decrypt(user.getPassword()));
 			if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
 				structure.setMessage("Logged in succesfully");
 				structure.setStatus(HttpStatus.FOUND.value());
@@ -67,7 +70,7 @@ public class UserService {
 		
 		ResponseStructure<User> structure = new ResponseStructure<>();
 		if (user != null) {
-			user.setPassword(encrypt.decrypt(user.getPassword()));
+//			user.setPassword(encrypt.decrypt(user.getPassword()));
 			structure.setMessage("Successfully found");
 			structure.setStatus(HttpStatus.FOUND.value());
 			structure.setData(user);
