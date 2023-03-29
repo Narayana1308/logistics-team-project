@@ -19,7 +19,7 @@ import javax.validation.constraints.Pattern;
 import lombok.Data;
 
 @Entity
-@Data
+@Data 
 public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
