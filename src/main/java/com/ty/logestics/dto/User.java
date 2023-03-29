@@ -37,16 +37,16 @@ public class User {
 	private String email;
 	@NotNull(message="password should not be null")
 	@NotBlank(message="password should not be blank")
-	@Pattern(regexp = "[a-zA-Z0-9]*[#&$]+",message="make password as strong ex: abc123&")
+	//@Pattern(regexp = "[a-zA-Z0-9]*[#&$]+",message="make password as strong ex: abc123&")
 	private String password;
 	@NotNull(message="role should not be null")
 	@NotBlank(message="role should not be blank")
-	@Pattern(regexp = "[a-zA-z]*" ,message ="role contails  characters only")
+	@Pattern(regexp = "[a-zA-Z]*" ,message ="role contails  characters only")
 	private String role;
 	
 	@NotNull(message="phone should not be null")
 	@NotBlank(message="phone should not be blank")
-	@Pattern(regexp = "[6-9][0-9]{9}" ,message ="number contaims 10 digits a")
+	@Pattern(regexp = "[6-9][0-9]{9}" ,message ="number contaims 10 digits and starts with 6-9")
 	private String phone;
 	public String getId() {
 		return id;
