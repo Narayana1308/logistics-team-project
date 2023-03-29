@@ -61,5 +61,13 @@ public class GoodsDao {
 			return null;
 		}
 	}
+	public Goods getGoodsByOrderId(int id) {
+		Goods goods=repo.getGoodsByOrderId(id);
+		if(goods!=null) {
+			return goods;
+		}else {
+			return null;
+		}
+	}
 
 }

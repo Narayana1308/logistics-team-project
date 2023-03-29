@@ -53,10 +53,23 @@ public class UserService {
 		if (user != null) {
 		user.setPassword(encrypt.decrypt(user.getPassword()));
 			if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
-				structure.setMessage("Logged in succesfully");
+				if(user.getRole().equals("Admin")) {
+				
+				structure.setMessage("Logged in succesfully admin");
 				structure.setStatus(HttpStatus.FOUND.value());
 				structure.setData(user);
 				return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.FOUND);
+				}else if(user.getRole().equals("Staff")) {
+					structure.setMessage("Logged in succesfully staff");
+					structure.setStatus(HttpStatus.FOUND.value());
+					structure.setData(user);
+					return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.FOUND);	
+				}else {
+					structure.setMessage("Logged in succesfully customer");
+					structure.setStatus(HttpStatus.FOUND.value());
+					structure.setData(user);
+					return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.FOUND);
+				}
 			} else {
 				throw new InvalidPasswordException();
 			}
