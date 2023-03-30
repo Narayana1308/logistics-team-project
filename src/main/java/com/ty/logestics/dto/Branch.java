@@ -3,6 +3,7 @@ package com.ty.logestics.dto;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,6 +33,7 @@ public class Branch {
 	@NotNull(message="email should not be null")
 	@NotBlank(message="email should not be blank")
 	@Email(regexp = "[a-zA-Z0-9][a-zA-Z0-9_.]*@gmail[.]com" ,message="Enter the proper Email id")
+	@Column(unique = true)
 	private String email;
 	
 //	@NotNull(message="password should not be null")

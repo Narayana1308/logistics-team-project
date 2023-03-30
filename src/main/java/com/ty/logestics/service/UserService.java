@@ -55,6 +55,7 @@ public class UserService {
 		if (user != null) {
 			user.setPassword(encrypt.decrypt(user.getPassword()));
 			if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
+				
 				if (user.getRole().equals(Role.Admin)) {
 
 					structure.setMessage("Logged in succesfully admin");

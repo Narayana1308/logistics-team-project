@@ -16,6 +16,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.validator.constraints.UniqueElements;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.ty.logestics.util.Role;
 import com.ty.logestics.util.StringPreFixedIdSequenceGenerator;
 
@@ -28,6 +30,7 @@ public class User {
 			@Parameter(name = StringPreFixedIdSequenceGenerator.INCREMENT_PARAM, value = "1"),
 			@Parameter(name = StringPreFixedIdSequenceGenerator.VALUE_PREFIXE_PARAMETER, value = "user_"),
 			@Parameter(name = StringPreFixedIdSequenceGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
+	
 	private String id;
 	@NotNull(message = "user name should not be null")
 	@NotBlank(message = "name should not be blank")
@@ -42,6 +45,7 @@ public class User {
 	@NotBlank(message = "password should not be blank")
 	// @Pattern(regexp = "[a-zA-Z0-9]*[#&$]+",message="make password as strong ex:
 	// abc123&")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 //	@NotNull(message="role should not be null")
 //	@NotBlank(message="role should not be blank")
