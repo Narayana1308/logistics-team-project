@@ -12,6 +12,8 @@ public interface ShipmentRepo  extends JpaRepository<Shipment, Integer>{
 
 	@Query("select s from Shipment s where s.goods.id=?1")
 	public List<Shipment> listOfShipment(int id);
+	@Query("select ship from Shipment ship where ship.goods.id=?1")
+	public Shipment getShipmentByGoodsId(int gid);
 
 
 }

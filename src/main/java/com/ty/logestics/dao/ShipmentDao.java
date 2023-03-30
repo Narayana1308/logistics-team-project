@@ -80,5 +80,13 @@ public class ShipmentDao {
 		}
 	}
 
-	
+	public Shipment getShipmentByGoodsId(int gid) {
+		Shipment shipment=repo.getShipmentByGoodsId(gid);
+		if(shipment!=null) {
+			return shipment;
+		}else {
+			
+			return null;
+		}
+	}
 }

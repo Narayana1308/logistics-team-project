@@ -14,6 +14,7 @@ import com.ty.logestics.exception.UserEmailNotFoundException;
 import com.ty.logestics.exception.UserIdNotFoundException;
 import com.ty.logestics.util.Encrypt;
 import com.ty.logestics.util.ResponseStructure;
+import com.ty.logestics.util.Role;
 
 @Service
 public class UserService {
@@ -24,7 +25,8 @@ public class UserService {
 
 	public ResponseEntity<ResponseStructure<User>> save(User user) {
 		ResponseStructure<User> structure = new ResponseStructure<>();
-	    user.setPassword(encrypt.encrypt(user.getPassword()));
+		user.setPassword(encrypt.encrypt(user.getPassword()));
+
 		structure.setMessage("saved");
 		structure.setStatus(HttpStatus.CREATED.value());
 		structure.setData(dao.saveUser(user));
@@ -35,36 +37,36 @@ public class UserService {
 		User user2 = dao.getUserById(u_id);
 		ResponseStructure<User> structure = new ResponseStructure<>();
 		if (user2 != null) {
-		    user.setPassword(encrypt.encrypt(user.getPassword()));
+			user.setPassword(encrypt.encrypt(user.getPassword()));
 			structure.setMessage("updated succesfully");
 			structure.setStatus(HttpStatus.OK.value());
 			structure.setData(dao.updateUser(u_id, user));
 			return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.OK);
 		} else {
 			throw new UserIdNotFoundException();
-      }
+		}
 
 	}
 
-	public ResponseEntity<ResponseStructure<User>> loginUser(String email, String password)  {
+	public ResponseEntity<ResponseStructure<User>> loginUser(String email, String password) {
 		User user = dao.getUserByEmail(email);
-		
+
 		ResponseStructure<User> structure = new ResponseStructure<>();
 		if (user != null) {
-		user.setPassword(encrypt.decrypt(user.getPassword()));
+			user.setPassword(encrypt.decrypt(user.getPassword()));
 			if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
-				if(user.getRole().equals("Admin")) {
-				
-				structure.setMessage("Logged in succesfully admin");
-				structure.setStatus(HttpStatus.FOUND.value());
-				structure.setData(user);
-				return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.FOUND);
-				}else if(user.getRole().equals("Staff")) {
+				if (user.getRole().equals(Role.Admin)) {
+
+					structure.setMessage("Logged in succesfully admin");
+					structure.setStatus(HttpStatus.FOUND.value());
+					structure.setData(user);
+					return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.FOUND);
+				} else if (user.getRole().equals(Role.Staff)) {
 					structure.setMessage("Logged in succesfully staff");
 					structure.setStatus(HttpStatus.FOUND.value());
 					structure.setData(user);
-					return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.FOUND);	
-				}else {
+					return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.FOUND);
+				} else {
 					structure.setMessage("Logged in succesfully customer");
 					structure.setStatus(HttpStatus.FOUND.value());
 					structure.setData(user);
@@ -80,7 +82,7 @@ public class UserService {
 
 	public ResponseEntity<ResponseStructure<User>> getUserById(String id) {
 		User user = dao.getUserById(id);
-		
+
 		ResponseStructure<User> structure = new ResponseStructure<>();
 		if (user != null) {
 //			user.setPassword(encrypt.decrypt(user.getPassword()));

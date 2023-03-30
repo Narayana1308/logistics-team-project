@@ -149,6 +149,15 @@ public class ApplicationExceptionalHandler extends ResponseEntityExceptionHandle
 		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
 
 	}
+	@ExceptionHandler(ShipmentAlreadyDoneException.class)
+	public ResponseEntity<ResponseStructure<String>> shipmentAlreadyDone(ShipmentAlreadyDoneException ex) {
+		ResponseStructure<String> structure = new ResponseStructure<String>();
+		structure.setMessage(ex.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("shipment already exist");
+		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+
+	}
 
 
 }
